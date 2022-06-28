@@ -3,6 +3,11 @@
 /public/js
 /public/media
 /public/plugins
+/resources/js
+/resources/lang
+/resources/metronic
+/resources/plugins
+/resources/sass
 /storage/*.key
 /vendor
 .env
