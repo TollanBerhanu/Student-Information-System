@@ -13,7 +13,7 @@ class Role extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description'
+        'name', 'description', 'system_id'
     ];
 
     public function role_privilege()
