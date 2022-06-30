@@ -2,8 +2,9 @@
 
 @php
     $kt_logo_image = 'logo-light.png';
-    $system_role = $user && $user['role'] ? strtolower($user['role']['system']['name']) : '';
-    @endphp
+    $system_role = ($user && $user['role']) ? strtolower($user['role']['system']['name']) : '';
+    $user_role = ($user && $user['role']) ? strtolower($user['role']['system']['name']).'_role.'.str_replace(' ', '_', strtolower($user['role']['name'])) : '';
+@endphp
 @if (config('layout.brand.self.theme') === 'light')
     @php $kt_logo_image = 'logo-dark.png' @endphp
 @elseif (config('layout.brand.self.theme') === 'dark')
@@ -46,13 +47,19 @@
             {{ Metronic::printAttrs('aside_menu') }}>
 
 
-            <ul class="menu-nav {{ Metronic::printClasses('aside_menu_nav', false) }}">
-                {{ Menu::renderVerMenu(config('asideMenu.common.items')) }}
-            </ul>
-            <h4 class="menu-text">Custom</h4>
+{{--            <ul class="menu-nav {{ Metronic::printClasses('aside_menu_nav', false) }}">--}}
+{{--                {{ Menu::renderVerMenu(config('asideMenu.common.items')) }}--}}
+{{--            </ul>--}}
+{{--            --}}
             @if (config('asideMenu.'.$system_role.'.items'))
                 <ul class="menu-nav {{ Metronic::printClasses('aside_menu_nav', false) }}">
                     {{ Menu::renderVerMenu(config('asideMenu.'.$system_role.'.items')) }}
+                </ul>
+            @endif
+
+            @if (config('asideMenu.'.$user_role.'.items'))
+                <ul class="menu-nav {{ Metronic::printClasses('aside_menu_nav', false) }}">
+                    {{ Menu::renderVerMenu(config('asideMenu.'.$user_role.'.items')) }}
                 </ul>
             @endif
 

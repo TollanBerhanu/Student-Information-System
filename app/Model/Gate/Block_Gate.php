@@ -12,11 +12,11 @@ class Block_Gate extends Model
     protected $table = 'block_gate';
     protected $fillable = [
         'alert',
-        'stud_id'
+        'student_id'
     ];
 
     public function student()
     {
-        return $this->hasMany(Student::class,'stud_id');
+        return $this->hasMany(Student::class,'student_id');
     }
 }

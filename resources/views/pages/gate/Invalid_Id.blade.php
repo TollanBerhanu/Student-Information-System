@@ -1,6 +1,6 @@
 
 {{-- Extends layout --}}
-@extends('layout.default')
+@extends('layout.empty')
 
 {{-- Content --}}
 @section('content')
@@ -27,22 +27,22 @@
               <div class="card-header">
                 <!-- <h3 class="card-title">DataTable with default features</h3> -->
   
-        <form class="form-inline my-2 my-lg-0" method="get" action="{{url('/PermitedStudent')}}">
-          <input type="search" class="form-control mr-sm-2" name="query" placeholder="Search" aria-label="Search">
+        <form class="form-inline my-2 my-lg-0" method="get" action="{{url('/gate/student/permitedStudent')}}">
+          <input type="search" style="margin-left: 20%!important" class="form-control mr-sm-2" name="query" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success my-2 my-sm-0" type=submit> Search</button>
             </form>
              </div>
-        <h1 style="color:red!important">Invalid Id/ Your are not Student, Try Another Gate</h1>
+        <h1 style="color:red; margin-left: 20%; !important">Invalid Id/ Your are not Student, Try Another Gate</h1>
         <div class="card-body">
             
              <table id="example1" class="table table-bordered table-striped">
                <tbody>
                <tr>
-             <td><img src="{{asset ('uploads/students/wrongicon.jpg')}}" width="200px" height="400px" alt=""></td>
+             <td><img src="{{asset ('uploads/profile/wrongicon.jpg')}}" width="400px" height="500px" alt=""></td>
              <td>
-               <img src="{{asset ('uploads/students/' )}}" width="400px" height="400px" alt=""></a> 
+               <img src="{{asset ('uploads/students/' )}}" width="520px" height="500px" alt=""></a> 
              </td>
-             <td><img src="{{asset ('uploads/students/wrongicon.jpg')}}" width="200px" height="400px" alt=""></td>
+             <td><img src="{{asset ('uploads/profile/wrongicon.jpg')}}" width="400px" height="500px" alt=""></td>
                 <td>
                 </tr>   
                 <td>    

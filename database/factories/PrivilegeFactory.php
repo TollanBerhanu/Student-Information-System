@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factory;
 $factory->define(Privilege::class, function (Faker $faker) {
     return [
         'name' => $faker->numberBetween(100,1000).$faker->unique()->firstName,
-        'system_id' => factory(App\Model\System::class),
+        'system_id' => App\Model\System::all()->random()->id,
         'description' => $faker->text,
     ];
 });

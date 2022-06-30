@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Model;
-
+use App\Model\User;
+use App\Model\Syncable\System;
+use App\Model\Syncable\RolePrivilege;
 use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
@@ -13,7 +15,7 @@ class Role extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description'
+        'name', 'description', 'system_id'
     ];
 
     public function role_privilege()

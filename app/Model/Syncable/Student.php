@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Model\Syncable;
-
+use App\Model\Syncable\Program;
 use Illuminate\Database\Eloquent\Model;
 use App\Model\Gate\Block_Gate;
 class Student extends Model
@@ -17,7 +17,7 @@ class Student extends Model
         'status',
         'dob', 'phone_number',
         'email', 'join_year',
-        'profile', 'student_id',
+        'profile', 'student_id','program_id',
         'taken_semester', 'passed_semester'
     ];
 
@@ -27,7 +27,7 @@ class Student extends Model
     }
     public function gate()
     {
-        return $this->belongsTo(Block_Gate::class,'stud_id');
+        return $this->belongsTo(Block_Gate::class,'student_id');
     
     }
 }

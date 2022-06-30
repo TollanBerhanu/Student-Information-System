@@ -1,6 +1,6 @@
 
 {{-- Extends layout --}}
-@extends('layout.default')
+@extends('layout.empty')
 
 {{-- Content --}}
 @section('content')
@@ -28,8 +28,8 @@
               <div class="card-header">
                 <!-- <h3 class="card-title">DataTable with default features</h3> -->
   
-        <form class="form-inline my-2 my-lg-0" method="get" action="{{url('/PermitedStudent')}}">
-          <input type="search" class="form-control mr-sm-2" name="query" placeholder="Search" aria-label="Search">
+        <form class="form-inline my-2 my-lg-0" method="get" action="{{url('/gate/student/permitedStudent')}}">
+          <input type="search" class="form-control mr-sm-2"  style="margin-left: 20%!important" name="query" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success my-2 my-sm-0" type=submit> Search</button>
             </form>
                
@@ -45,16 +45,16 @@
                @foreach($block_gate as $a)
               
                <tr>
-             <h1 style="color:red!important">Alert : {{$a->alert}}</h1>
-             <td><img src="{{asset ('uploads/students/wrongicon.jpg')}}" width="200px" height="400px" alt=""></td>
+             <h1 style="color:red;margin-left: 20%!important">Alert : {{$a->alert}}</h1>
+             <td><img src="{{asset ('uploads/profile/wrongicon.jpg')}}"  width="400px" height="520px" alt=""></td>
              <td>
-             <a class="btn btn-info" href="{{ route('student.show',$a->id) }}">
-               <img src="{{asset ('uploads/students/')}}" width="400px" height="400px" alt=""></a> 
+             <a class="btn btn-info" href="">
+               <img src="{{asset ('uploads/profile/')}}" width="600px" height="520px" alt=""></a> 
               
              </td>
-             <td><img src="{{asset ('uploads/students/wrongicon.jpg')}}" width="200px" height="400px" alt=""></td>
+             <td><img src="{{asset ('uploads/profile/wrongicon.jpg')}}" width="400px" height="520px" alt=""></td>
                 <td>
-                <form action="{{ route('student.destroy',$a->id) }}" method="POST">   
+                <form action="" method="POST">   
                 
                 </tr>
                  @csrf

@@ -16,8 +16,8 @@ class CreateBlockGateTable extends Migration
         Schema::create('block_gate', function (Blueprint $table) {
             $table->id();
             $table->text('alert');
-            $table->index('stud_id');
-            $table->foreignId('stud_id')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete()->references('id')->on('students');
+            $table->index('student_id');
+            $table->foreignId('student_id')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete()->references('id')->on('students');
             $table->timestamps();
         });
     }

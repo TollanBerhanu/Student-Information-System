@@ -60,6 +60,9 @@
                             College: {{$user['college'] ? $user['college']['name']."(".$user['college']['code'].")" : "Unassigned"}}
                         </div>
                         <div class="text-muted font-weight-bold">
+                            System: {{$user['role'] ? $user['role']['system']['name'] : "Unassigned"}}
+                        </div>
+                        <div class="text-muted font-weight-bold">
                             Role: {{$user['role'] ? $user['role']['name'] : "Unassigned"}}
                         </div>
                     </div>
