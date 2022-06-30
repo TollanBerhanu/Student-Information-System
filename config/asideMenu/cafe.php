@@ -8,7 +8,7 @@ return [
             'title' => 'Cafe',
             'root' => true,
             'icon' => 'media/svg/icons/Food/Dinner.svg', // or can be 'flaticon-home' or any flaticon-*
-            'page' => 'cafe',
+            'page' => '/cafe',
             'new-tab' => false,
         ],
     ]

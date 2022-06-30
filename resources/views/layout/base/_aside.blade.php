@@ -48,20 +48,25 @@
             {{ Metronic::printAttrs('aside_menu') }}>
 
 
-{{--            <ul class="menu-nav {{ Metronic::printClasses('aside_menu_nav', false) }}">--}}
-{{--                {{ Menu::renderVerMenu(config('asideMenu.common.items')) }}--}}
-{{--            </ul>--}}
+           <ul class="menu-nav {{ Metronic::printClasses('aside_menu_nav', false) }}">
+                {{ Menu::renderVerMenu(config('asideMenu.common.items')) }}
+           </ul>
+
+            {{-- @if (config('asideMenu.'.$system_role.'.items'))
+                <ul class="menu-nav {{ Metronic::printClasses('aside_menu_nav', false) }}">
+                    {{ Menu::renderVerMenu(config('asideMenu.'.$system_role.'.items')) }}
+                </ul>
+            @endif --}}
 
             @if (config('asideMenu.'.$system_role.'.items'))
                 <ul class="menu-nav {{ Metronic::printClasses('aside_menu_nav', false) }}">
                     {{ Menu::renderVerMenu(config('asideMenu.'.$system_role.'.items')) }}
                 </ul>
             @endif
-
             @if (config('asideMenu.'.$user_role.'.items'))
-                <ul class="menu-nav {{ Metronic::printClasses('aside_menu_nav', false) }}">
-                    {{ Menu::renderVerMenu(config('asideMenu.'.$user_role.'.items')) }}
-                </ul>
+            <ul class="menu-nav {{ Metronic::printClasses('aside_menu_nav', false) }}">
+                 {{Menu::renderVerMenu(config('asideMenu.cafe_role.'.$user_role.'.items'))}}
+            </ul>
             @endif
 
         </div>
