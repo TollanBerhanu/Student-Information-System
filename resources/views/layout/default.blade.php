@@ -37,7 +37,6 @@
         @endif
 
         @include('layout.base._layout')
-
         <script>var HOST_URL = "{{ route('quick-search') }}";</script>
 
         {{-- Global Config (global config for global JS scripts) --}}

@@ -3,7 +3,7 @@
 namespace App\Model\Syncable;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\Model\Gate\Block_Gate;
 class Student extends Model
 {
     /**
@@ -25,5 +25,9 @@ class Student extends Model
     {
         return $this->belongsTo('App\Model\Syncable\Program');
     }
-
+    public function gate()
+    {
+        return $this->belongsTo(Block_Gate::class,'stud_id');
+    
+    }
 }
