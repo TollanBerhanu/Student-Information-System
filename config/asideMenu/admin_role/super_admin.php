@@ -5,7 +5,7 @@ return [
     'items' => [
         // Custom
         [
-            'section' => 'Admin System',
+            'section' => 'Super Admin',
         ],
         // Employee
         [
@@ -16,8 +16,8 @@ return [
             'root' => true,
             'submenu' => [
                 [
-                    'title' => 'List',
-                    'page' => '/admin/employee/'
+                    'title' => 'Register',
+                    'page' => '/admin/employee/register'
                 ]
             ]
         ],
@@ -30,8 +30,8 @@ return [
             'root' => true,
             'submenu' => [
                 [
-                    'title' => 'List',
-                    'page' => '/admin/role/'
+                    'title' => 'Create',
+                    'page' => '/admin/role/register'
                 ]
             ]
         ],
@@ -44,8 +44,8 @@ return [
             'root' => true,
             'submenu' => [
                 [
-                    'title' => 'List',
-                    'page' => '/admin/privilege/'
+                    'title' => 'Create',
+                    'page' => '/admin/privilege/register'
                 ]
             ]
         ],

@@ -2,8 +2,8 @@
 
 @php
     $kt_logo_image = 'logo-light.png';
-    $system_role = $user && $user['role'] ? strtolower($user['role']['system']['name']) : '';
-    $user_role = $user && $user['role'] ? strtolower($user['role']['system']['name']).'_role.'.strtolower($user['role']) : '';
+    $system_role = ($user && $user['role']) ? strtolower($user['role']['system']['name']) : '';
+    $user_role = ($user && $user['role']) ? strtolower($user['role']['system']['name']).'_role.'.str_replace(' ', '_', strtolower($user['role']['name'])) : '';
 @endphp
 
 @if (config('layout.brand.self.theme') === 'light')
@@ -51,7 +51,7 @@
 {{--            <ul class="menu-nav {{ Metronic::printClasses('aside_menu_nav', false) }}">--}}
 {{--                {{ Menu::renderVerMenu(config('asideMenu.common.items')) }}--}}
 {{--            </ul>--}}
-
+{{--            --}}
             @if (config('asideMenu.'.$system_role.'.items'))
                 <ul class="menu-nav {{ Metronic::printClasses('aside_menu_nav', false) }}">
                     {{ Menu::renderVerMenu(config('asideMenu.'.$system_role.'.items')) }}
