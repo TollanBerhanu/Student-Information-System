@@ -10,7 +10,7 @@ $factory->define(Faculty::class, function (Faker $faker) {
     return [
         'name' => $faker->numberBetween(100,1000).$faker->unique()->firstName,
         'code' => $faker->numberBetween(100,1000).$faker->unique()->firstName,
-        'college_id' => factory(App\Model\Syncable\College::class),
+        'college_id' => App\Model\Syncable\College::all()->random()->id,
         'description' => $faker->text,
     ];
 });

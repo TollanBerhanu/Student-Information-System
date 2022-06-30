@@ -21,6 +21,6 @@ $factory->define(Student::class, function (Faker $faker) {
         'passed_semester' => $faker->numberBetween(1,10),
         'taken_semester' => $faker->numberBetween(1,10),
         'student_id' => $faker->unique()->text,
-        'program_id' => factory(App\Model\Syncable\Program::class),
+        'program_id' => App\Model\Syncable\Program::all()->random()->id,
     ];
 });

@@ -17,7 +17,7 @@ $factory->define(User::class, function (Faker $faker) {
         'sex' => $faker->randomElement(['Male', 'Female']),
         'status' => $faker->boolean,
         'email_verified_at' => $faker->dateTime,
-        'college_id' => factory(App\Model\Syncable\Program::class),
-        'role_id' => factory(App\Model\Role::class),
+        'college_id' => App\Model\Syncable\College::all()->random()->id,
+        'role_id' => App\Model\Role::all()->random()->id,
     ];
 });

@@ -15,7 +15,7 @@ class CreateRolePrivilegesTable extends Migration
     {
         Schema::create('role_privileges', function (Blueprint $table) {
             $table->id();
-            $table->boolean('status');
+            $table->boolean('status')->default(true);
             $table->index('role_id');
             $table->foreignId('role_id')->constrained()->cascadeOnDelete()->references('id')->on('roles');
             $table->index('privilege_id');

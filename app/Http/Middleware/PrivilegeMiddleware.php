@@ -22,6 +22,10 @@ class PrivilegeMiddleware
 //        error_log(json_encode($user));
         $role = $user['role'];
 //        error_log(json_encode($role));
+        if($role == null){
+            abort(403);
+        }
+//        error_log(json_encode($role));
         $rolePrivileges = $role['role_privilege'];
 //        error_log(json_encode($rolePrivileges));
         foreach ($rolePrivileges as $rolePrivilege) {
