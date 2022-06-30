@@ -11,6 +11,7 @@ Route::group(['prefix' => 'id'], function (){
     
     Route::post('/generatePermanentId', 'ID\GenerateIDController@generatePermanentId')->middleware(['auth','privilege:id_generate'])->name('ID_PermanentGenerate');
     Route::post('/generateTemporaryId', 'ID\GenerateIDController@generateTemporaryId')->middleware(['auth','privilege:id_generate'])->name('ID_TemporaryGenerate');
+    Route::post('/printTemporaryId', 'ID\GenerateIDController@printTemporaryId')->middleware(['auth','privilege:id_generate'])->name('ID_TemporaryPrint');
     
 
 });

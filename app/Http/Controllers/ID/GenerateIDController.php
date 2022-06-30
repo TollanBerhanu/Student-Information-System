@@ -12,6 +12,7 @@ use App\Model\Syncable\College;
 use Illuminate\Http\Request;
 
 use Intervention\Image\Facades\Image;
+use PDF;
 
 class GenerateIDController extends Controller
 {
@@ -29,15 +30,16 @@ class GenerateIDController extends Controller
             // $department = Department::select('name')->where('id', $program->program)->get();
         } */
 
-        return view('pages.id.permanent', compact('page_title', 'page_description', 'user', 'students'));
+        return view('pages.id.generateID', compact('page_title', 'page_description', 'user', 'students'));
     }
 
     public function generateTemporaryId(Request $request){
         $page_title = 'Generate Temporary ID';
         $page_description = '';
         $user = Auth::user();
+        $selectedIDsStr = $request->selectedIDs;
 
-        $selectedIDs = explode(",", $request->selectedIDs);
+        $selectedIDs = explode(",", $selectedIDsStr);
         $selectedStudents = [];
         foreach($selectedIDs as $id){
             $student = Student::where('id', $id)->get();
@@ -45,7 +47,24 @@ class GenerateIDController extends Controller
         }
         // return View::make('pages.id.temporary')->with('data', $selectedStudents);
         
-        return view('pages.id.temporary', compact('page_title', 'page_description', 'user', 'selectedStudents'));
+        return view('pages.id.temporary', compact('page_title', 'page_description', 'user', 'selectedStudents', 'selectedIDsStr'));
+    }
+
+    public function printTemporaryId(Request $request){
+        $page_title = 'Generate Temporary ID';
+        $page_description = '';
+        $user = Auth::user();
+        $selectedIDsStr = $request->selectedIDs;
+
+        $selectedIDs = explode(",", $selectedIDsStr);
+        $selectedStudents = [];
+        foreach($selectedIDs as $id){
+            $student = Student::where('id', $id)->get();
+            array_push($selectedStudents, $student);
+        }
+
+        $pdf = PDF::loadView('pages.id.tempPdf', compact('page_title', 'page_description', 'user', 'selectedStudents'));
+        return $pdf->download('invoice.pdf');
     }
     
     public function generatePermanentId(Request $request){
