@@ -5,7 +5,11 @@
 @section('content')
 
     {{-- Dashboard 1 --}}
-
+    @php
+           $user_role = ($user && $user['role']) ? strtolower($user['role']['name']): '';
+    @endphp
+    <h1 style="text-align: center;">Welcome {{ $user_role }}  To Cafe System</h1>
+{{-- 
     <div class="row">
         <div class="col-lg-6 col-xxl-4">
             @include('pages.widgets._widget-1', ['class' => 'card-stretch gutter-b'])
@@ -39,7 +43,7 @@
         <div class="col-lg-12 col-xxl-4 order-1 order-xxl-2">
             @include('pages.widgets._widget-9', ['class' => 'card-stretch gutter-b'])
         </div>
-    </div>
+    </div> --}}
 
 @endsection
 

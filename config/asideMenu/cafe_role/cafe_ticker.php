@@ -5,33 +5,33 @@ return [
     'items' => [
         // Custom
         [
-            'section' => 'Admin System',
+            'section' => 'Cafe Ticker',
         ],
         // Employee
         [
-            'title' => 'Employee',
+            'title' => 'Cafe',
             'desc' => '',
             'icon' => 'media/svg/icons/Design/Bucket.svg',
             'bullet' => 'dot',
             'root' => true,
             'submenu' => [
                 [
-                    'title' => 'List',
-                    'page' => '/admin/employee/'
+                    'title' => 'Register',
+                    'page' => '/admin/employee/register'
                 ]
             ]
         ],
         // Role
         [
-            'title' => 'Role',
+            'title' => 'Student',
             'desc' => '',
             'icon' => 'media/svg/icons/Design/Bucket.svg',
             'bullet' => 'dot',
             'root' => true,
             'submenu' => [
                 [
-                    'title' => 'List',
-                    'page' => '/admin/role/'
+                    'title' => 'Create',
+                    'page' => '/admin/role/register'
                 ]
             ]
         ],
@@ -44,8 +44,8 @@ return [
             'root' => true,
             'submenu' => [
                 [
-                    'title' => 'List',
-                    'page' => '/admin/privilege/'
+                    'title' => 'Create',
+                    'page' => '/admin/privilege/register'
                 ]
             ]
         ],

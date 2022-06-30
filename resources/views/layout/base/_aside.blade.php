@@ -2,8 +2,8 @@
 
 @php
     $kt_logo_image = 'logo-light.png';
-    $system_role = $user && $user['role'] ? strtolower($user['role']['system']['name']) : '';
-    $user_role = $user && $user['role'] ? strtolower($user['role']['system']['name']).'_role.'.strtolower($user['role']) : '';
+    $system_role = ($user && $user['role']) ? strtolower($user['role']['system']['name']) : '';
+    $user_role = ($user && $user['role']) ? strtolower($user['role']['system']['name']).'_role.'.str_replace(' ', '_', strtolower($user['role']['name'])) : '';
 @endphp
 
 @if (config('layout.brand.self.theme') === 'light')
@@ -37,6 +37,7 @@
             <div class="header-logo">
                 <a href="{{ url('/') }}">
                     <img alt="{{ config('app.name') }}" src="{{ asset('media/logos/'.$kt_logo_image) }}"/>
+                    {{ 'asideMenu.'.$system_role.'.items' }}
                 </a>
             </div>
         @endif
@@ -48,15 +49,9 @@
             {{ Metronic::printAttrs('aside_menu') }}>
 
 
-           <ul class="menu-nav {{ Metronic::printClasses('aside_menu_nav', false) }}">
+           {{-- <ul class="menu-nav {{ Metronic::printClasses('aside_menu_nav', false) }}">
                 {{ Menu::renderVerMenu(config('asideMenu.common.items')) }}
-           </ul>
-
-            {{-- @if (config('asideMenu.'.$system_role.'.items'))
-                <ul class="menu-nav {{ Metronic::printClasses('aside_menu_nav', false) }}">
-                    {{ Menu::renderVerMenu(config('asideMenu.'.$system_role.'.items')) }}
-                </ul>
-            @endif --}}
+           </ul> --}}
 
             @if (config('asideMenu.'.$system_role.'.items'))
                 <ul class="menu-nav {{ Metronic::printClasses('aside_menu_nav', false) }}">
@@ -65,7 +60,7 @@
             @endif
             @if (config('asideMenu.'.$user_role.'.items'))
             <ul class="menu-nav {{ Metronic::printClasses('aside_menu_nav', false) }}">
-                 {{Menu::renderVerMenu(config('asideMenu.cafe_role.'.$user_role.'.items'))}}
+                 {{Menu::renderVerMenu(config('asideMenu.'.$user_role.'.items'))}}
             </ul>
             @endif
 

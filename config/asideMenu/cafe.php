@@ -5,7 +5,7 @@ return [
     'items' => [
         // Dashboard
         [
-            'title' => 'Cafe',
+            'title' => 'Cafe Admin Dashbord',
             'root' => true,
             'icon' => 'media/svg/icons/Food/Dinner.svg', // or can be 'flaticon-home' or any flaticon-*
             'page' => '/cafe',
