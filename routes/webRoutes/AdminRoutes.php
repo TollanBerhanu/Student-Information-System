@@ -36,16 +36,3 @@ Route::group(['prefix' => '/admin'], function () {
     });
 
 });
-// privilege list
-
-// admin_dashboard
-// employee_list
-// employee_register
-// employee_update
-// role_list
-// role_register
-// role_update
-// role_privilege
-// privilege_list
-// privilege_register
-// privilege_update

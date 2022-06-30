@@ -5,11 +5,11 @@ return [
     'items' => [
         // Custom
         [
-            'section' => 'Super Admin',
+            'section' => 'Cafe Super Admin',
         ],
         // Employee
         [
-            'title' => 'Employee',
+            'title' => 'Cafe',
             'desc' => '',
             'icon' => 'media/svg/icons/Design/Bucket.svg',
             'bullet' => 'dot',
@@ -23,7 +23,7 @@ return [
         ],
         // Role
         [
-            'title' => 'Role',
+            'title' => 'Student',
             'desc' => '',
             'icon' => 'media/svg/icons/Design/Bucket.svg',
             'bullet' => 'dot',
