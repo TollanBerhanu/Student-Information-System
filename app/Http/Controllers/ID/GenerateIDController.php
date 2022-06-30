@@ -51,19 +51,15 @@ class GenerateIDController extends Controller
     }
 
     public function printTemporaryId(Request $request){
-        $page_title = 'Generate Temporary ID';
-        $page_description = '';
-        $user = Auth::user();
         $selectedIDsStr = $request->selectedIDs;
-
         $selectedIDs = explode(",", $selectedIDsStr);
         $selectedStudents = [];
         foreach($selectedIDs as $id){
             $student = Student::where('id', $id)->get();
             array_push($selectedStudents, $student);
         }
-
-        $pdf = PDF::loadView('pages.id.tempPdf', compact('page_title', 'page_description', 'user', 'selectedStudents'));
+        // dd($selectedStudents);
+        $pdf = PDF::loadView('pages.id.tempPdf', compact('selectedStudents'));
         return $pdf->download('invoice.pdf');
     }
     

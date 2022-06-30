@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Model\Syncable;
-
+use App\Model\Syncable\Student;
+use App\Model\Syncable\Department;
 use Illuminate\Database\Eloquent\Model;
 
 class Program extends Model

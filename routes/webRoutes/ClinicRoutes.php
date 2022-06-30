@@ -2,9 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
-
+use App\Http\Controllers\Clinic\ClinicPagesController;
 Route::group(['prefix' => 'clinic'], function (){
 
-    Route::get('', 'ClinicPagesController@index')->middleware(['auth','privilege:clinic_dashboard'])->name('clinicDashboard');
+    Route::get('', 'Clinic\ClinicPagesController@index')->middleware(['auth','privilege:clinic_dashboard'])->name('clinicDashboard');
 
 });

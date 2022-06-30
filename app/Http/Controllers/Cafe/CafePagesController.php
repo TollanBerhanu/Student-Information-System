@@ -13,7 +13,7 @@ class CafePagesController extends Controller
         $page_description = 'Some description for the page';
         $user = Auth::user();
 
-        return view('pages.cafe.dashboard', compact('page_title', 'page_description', 'user'));
+        return view('pages.cafe.commanPage', compact('page_title', 'page_description', 'user'));
     }
 
 

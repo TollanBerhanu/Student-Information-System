@@ -3,14 +3,52 @@
 return [
 
     'items' => [
-        // Dashboard
         [
-            'title' => 'Gate Control',
-            'root' => true,
-            'icon' => 'media/svg/icons/Design/Layers.svg', // or can be 'flaticon-home' or any flaticon-*
-            'page' => '/',
-            'new-tab' => false,
+            'section' => 'Gate Admin',
         ],
+         // Employee
+         [
+            'title' => 'Student List',
+            'desc' => '',
+            'icon' => 'media/svg/icons/Design/Bucket.svg',
+            'bullet' => 'dot',
+            'root' => true,
+            'submenu' => [
+                [
+                    'title' => 'List',
+                    'page' => '/gate/student/'
+                ]
+            ]
+        ],
+       // Gate Assign
+       [
+        'title' => 'Control Gate',
+        'desc' => '',
+        'icon' => 'media/svg/icons/Design/Bucket.svg',
+        'bullet' => 'dot',
+        'root' => true,
+        'submenu' => [
+            [
+                'title' => 'Control Student Gate',
+                'page' => '/gate/student/student_pass',
+            ]
+            
+        ]
+    ],
+    // Privilege
+    [
+        'title' => 'Employee',
+        'desc' => '',
+        'icon' => 'media/svg/icons/Design/Bucket.svg',
+        'bullet' => 'dot',
+        'root' => true,
+        'submenu' => [
+            [
+                'title' => 'Gates Employee',
+                'page' => '/gate/attendance'
+            ]
+        ]
+    ],
     ]
 
 ];

@@ -1,6 +1,12 @@
+ {{-- Extends layout --}}
+ {{-- @extends('layout.empty') --}}
+
+ {{-- Content --}}
+ 
+
 @foreach($selectedStudents as $stud)
             {{-- {{ $stud[0]->first_name }} <br> --}}
-            <div class="bg-white" style="width: 45%; display:inline-block; margin: 10px;">
+            <div class="bg-white" style="width: 40%; display:inline-block; margin: 10px; float:left;">
                 <div class="col-md-12">
                     <table class="table table-borderless">
                         <tbody>
@@ -16,7 +22,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td rowspan="3" style="padding:40px 0px; text-align:center; border: 1px solid #333; width: 25%;"> Photo </td>
+                                <td rowspan="3" style="padding:45px 0px; text-align:center; border: 1px solid #333; width: 20%;"> Photo </td>
                                 <td colspan="2">Name: {{ $stud[0]->first_name." ".$stud[0]->middle_name." ".$stud[0]->last_name }}</td>
                             </tr>
                             <tr>
