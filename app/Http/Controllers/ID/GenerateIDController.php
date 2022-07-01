@@ -5,6 +5,7 @@ namespace App\Http\Controllers\ID;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Model\Syncable\Student;
+use App\Model\Syncable\Photo;
 use App\Model\Syncable\Program;
 use App\Model\Syncable\Department;
 use App\Model\Syncable\Faculty;
@@ -13,6 +14,8 @@ use Illuminate\Http\Request;
 
 use Intervention\Image\Facades\Image;
 use PDF;
+use Milon\Barcode\DNS1D;
+use \Gumlet\ImageResize;
 
 class GenerateIDController extends Controller
 {
@@ -22,14 +25,6 @@ class GenerateIDController extends Controller
         $page_description = '';
         $user = Auth::user();
         $students = Student::all();
-
-        /* foreach($students as $stud){
-            dd($stud->program->department->name);
-            $program = Program::select('id', 'name')->where('id', $stud->program)->get();
-            dd($program);
-            // $department = Department::select('name')->where('id', $program->program)->get();
-        } */
-
         return view('pages.id.generateID', compact('page_title', 'page_description', 'user', 'students'));
     }
 
@@ -52,14 +47,15 @@ class GenerateIDController extends Controller
 
     public function printTemporaryId(Request $request){
         $selectedIDsStr = $request->selectedIDs;
-        $selectedIDs = explode(",", $selectedIDsStr);
+        $selectedIDs = explode(",", $selectedIDsStr); // Split string by ','
         $selectedStudents = [];
         foreach($selectedIDs as $id){
             $student = Student::where('id', $id)->get();
-            array_push($selectedStudents, $student);
+            array_push($selectedStudents, $student); // Create an array of selected students
         }
         // dd($selectedStudents);
         $pdf = PDF::loadView('pages.id.tempPdf', compact('selectedStudents'));
+        // download as PDF file
         return $pdf->download('invoice.pdf');
     }
     
@@ -87,27 +83,10 @@ class GenerateIDController extends Controller
     }   */
 
     public function addWatermark($studentName, $studentDepartment, $studentProgram, $studentID){
-        // dd('Watermark created successfully.');
-        $img = Image::make(public_path('images/ID Templates/id_red.jpg'));
-         // add text from database 
-       /*  $img->text('add data what you want.', 120, 100);
-     
-        $img->save(public_path('images/demo-new.png')); 
         
-        dd('Watermark created successfully.'); */
-        
-        // create Image from file
-        /*  $img = Image::canvas(10, 10, '#fff'); */
-         
-         // write text
-         /* $img->text('The quick brown fox jumps over the lazy dog.');
-         $img->save(public_path('images/demo-new1.png'));  */
-     
-         // write text at position
-         /* $img->text('The quick brown fox jumps over the lazy dog.', 120, 100); */
-     
+        $img = Image::make(public_path('images/ID Templates/id_red.jpg'));    
 
-         // use callback to define details
+         // Use callback to define details
          $img->text($studentName, 200, 300, function($font) {
              $font->file(public_path('font/calibril.ttf'));
              $font->size(50);
@@ -134,20 +113,27 @@ class GenerateIDController extends Controller
             $font->valign('top');
             $font->angle(0);
         });
+
+        //Resize image and save it to local path
+        $base64img = Photo::where('id', 2)->get();  // $base64img = 'iVBORw0KGgoAAAANSUhEUgAAAOAAAADh ...';
+        $image =ImageResize::createFromString(base64_decode($base64img[0]->photo));
+        $image->resize(320, 340, $allow_enlarge = True);
+        $image->save('images/Photos/image.jpg');
         
-        // insert watermark at bottom-right corner with 10px offset
-        $img->insert('images/Photos/img_avatar3.png', 'top-left' ,900, 230);  
+        //Insert Barcode
+        $img->insert('data:image/png;base64,'.DNS1D::getBarcodePNG($studentID, 'C39+',3,100,array(0,0,0), true), 'top-left' ,80, 550);  
+        // insert photo at top-left corner with specified offset
+        $img->insert('images/Photos/image.jpg', 'top-left' ,930, 235);  
+        //Save image to local path
+        $img->save(public_path('images/Permanent IDs/'.str_replace("/","-", $studentID).'.png')); 
 
-         $img->save(public_path('images/Permanent IDs/'.str_replace("/","-", $studentID).'.png')); 
-
-        //  dd('Watermark created successfully.');
+         // create Image from file
+        /*  $img = Image::canvas(10, 10, '#fff'); */
          // draw transparent text
          /* $img->text('foo', 0, 0, function($font) {
              $font->color(array(255, 255, 255, 0.5));
          });
-         
-         $img->save(public_path('images/demo-new3.png')); 
-         dd('Watermark created successfully.'); */
+          */
      }
 
 }
