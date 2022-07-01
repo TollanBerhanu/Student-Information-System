@@ -18,9 +18,9 @@ class CreateRoomsTable extends Migration
             $table->string('name')->unique();
             $table->string('description');
             $table->index('clinic_id');
-            $table->foreignId('clinic_id')->nullable()->constrained()->cascadeOnUpdate()->onDelete("RESTRICT")->references('id')->on('clinics');
+            $table->foreignId('clinic_id')->nullable()->references('id')->on('clinics');
             $table->index('user_id');
-            $table->foreignId('user_id')->nullable()->constrained()->cascadeOnUpdate()->nullOnDelete()->references('id')->on('users');
+            $table->foreignId('user_id')->nullable()->references('id')->on('users');
             $table->timestamps();
         });
     }
