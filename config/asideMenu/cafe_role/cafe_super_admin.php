@@ -7,45 +7,67 @@ return [
         [
             'section' => 'Cafe Super Admin',
         ],
-        // Employee
+        // Register
         [
-            'title' => 'Cafe',
+            'title' => 'Register and Update',
             'desc' => '',
             'icon' => 'media/svg/icons/Design/Bucket.svg',
             'bullet' => 'dot',
             'root' => true,
             'submenu' => [
                 [
-                    'title' => 'Register',
-                    'page' => '/admin/employee/register'
+                    'title' => 'Cafe',
+                    'page' => '/cafe/Opration/cafe_register_update_page'
+                ],
+                [
+                    'title' => 'Food Menu',
+                    'page' => '#'
                 ]
             ]
         ],
-        // Role
+        // Assign
         [
-            'title' => 'Student',
+            'title' => 'Assign',
             'desc' => '',
             'icon' => 'media/svg/icons/Design/Bucket.svg',
             'bullet' => 'dot',
             'root' => true,
             'submenu' => [
                 [
-                    'title' => 'Create',
-                    'page' => '/admin/role/register'
+                    'title' => 'Cafe To Collage',
+                    'page' => '#'
+                ],
+                [
+                    'title' => 'Cafe To Department',
+                    'page' => '#'
+                ],
+                [
+                    'title' => 'Cafe To Program',
+                    'page' => '#'
+                ]
+                ,
+                [
+                    'title' => 'Collage Cafe Admin',
+                    'page' => '#'
                 ]
             ]
         ],
         // Privilege
         [
-            'title' => 'Privilege',
+            'title' => 'Time And Schedule',
             'desc' => '',
             'icon' => 'media/svg/icons/Design/Bucket.svg',
             'bullet' => 'dot',
             'root' => true,
             'submenu' => [
                 [
-                    'title' => 'Create',
-                    'page' => '/admin/privilege/register'
+                    'title' => 'Create Time Schedule',
+                    'page' => '#'
+                ]
+                ,
+                [
+                    'title' => 'Update Time Schedule',
+                    'page' => '#'
                 ]
             ]
         ],

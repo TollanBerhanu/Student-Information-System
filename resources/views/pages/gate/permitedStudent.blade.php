@@ -28,6 +28,7 @@
         <form class="form-inline my-2 my-lg-0" method="get" action="{{url('/gate/student/permitedStudent')}}">
           <input type="search" class="form-control mr-sm-2" style="margin-left: 20%!important" name="query" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success my-2 my-sm-0" type=submit>  <i class="fas fa-search fa-fw"></i></button>                         
+          <a href="{{url('/')}}" style="margin-left:80%!important"><h1>Back</h1></a> 
         </form>
               </div>
               

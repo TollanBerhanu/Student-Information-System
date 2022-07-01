@@ -8,6 +8,10 @@ Route::group(['prefix' => 'gate'], function (){
     //Employees student list
     Route::get('/attendance','Gate\GatePagesController@employeeList')->middleware(['auth','privilege:employee_list'])->name('GetEmloyeeList');
     
+    Route::get('/update/{id}', 'Gate\GatePagesController@gate_attendance')->middleware(['auth', 'privilege:employee_update'])->name('employeeListAttendance');
+    Route::get('/employeeAttendance', 'Gate\GatePagesController@attendanceHandle')->middleware(['auth', 'privilege:employee_update'])->name('employeeAttendanceHandler');
+
+
     Route::group(['prefix' => '/student'], function () {
         
         Route::get('/block_stud_List','Gate\GatePagesController@studList')->middleware(['auth','privilege:block_stud_List'])->name('getStuentList');

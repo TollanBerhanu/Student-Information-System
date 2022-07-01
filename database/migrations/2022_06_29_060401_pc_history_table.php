@@ -15,8 +15,8 @@ class PcHistoryTable extends Migration
     {
         Schema::create('pc_history', function (Blueprint $table) {
             $table->id();
-            $table->index('stud_id');
-            $table->foreignId('stud_id')->nullable()->constrained()->cascadeOnDelete()->cascadeOnUpdate()->references('id')->on("students");
+            $table->index('student_id');
+            $table->foreignId('student_id')->nullable()->constrained()->cascadeOnDelete()->cascadeOnUpdate()->references('id')->on("students");
            $table->date('date');
             $table->timestamps();
         });

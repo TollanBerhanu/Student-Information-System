@@ -30,7 +30,8 @@
         <form class="form-inline my-2 my-lg-0" method="get" action="{{url('/gate/student/permitedStudent')}}">
           <input type="search" style="margin-left: 20%!important" class="form-control mr-sm-2" name="query" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success my-2 my-sm-0" type=submit> Search</button>
-            </form>
+          <a href="{{url('/')}}" style="float:right!important"><h1>Back</h1></a>  
+        </form>
              </div>
         <h1 style="color:red; margin-left: 20%; !important">Invalid Id/ Your are not Student, Try Another Gate</h1>
         <div class="card-body">

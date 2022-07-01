@@ -7,45 +7,35 @@ return [
         [
             'section' => 'Collage Cafe Admin',
         ],
-        // Employee
+        // manage the Ticker
         [
-            'title' => 'Cafe',
+            'title' => 'Manage Tickers',
             'desc' => '',
             'icon' => 'media/svg/icons/Design/Bucket.svg',
             'bullet' => 'dot',
             'root' => true,
             'submenu' => [
                 [
-                    'title' => 'Register',
-                    'page' => '/admin/employee/register'
+                    'title' => 'list Tickers',
+                    'page' => '#'
+                ],
+                [
+                    'title' => 'Asign Tickers',
+                    'page' => '#'
                 ]
             ]
         ],
-        // Role
+        // Manage Time Schedule
         [
-            'title' => 'Student',
+            'title' => 'Manage Time Schedule',
             'desc' => '',
             'icon' => 'media/svg/icons/Design/Bucket.svg',
             'bullet' => 'dot',
             'root' => true,
             'submenu' => [
                 [
-                    'title' => 'Create',
-                    'page' => '/admin/role/register'
-                ]
-            ]
-        ],
-        // Privilege
-        [
-            'title' => 'Privilege',
-            'desc' => '',
-            'icon' => 'media/svg/icons/Design/Bucket.svg',
-            'bullet' => 'dot',
-            'root' => true,
-            'submenu' => [
-                [
-                    'title' => 'Create',
-                    'page' => '/admin/privilege/register'
+                    'title' => 'Asign Time Schedule',
+                    'page' => '#'
                 ]
             ]
         ],

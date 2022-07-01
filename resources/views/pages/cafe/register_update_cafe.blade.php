@@ -3,7 +3,7 @@
 
 {{-- Content --}}
 @section('content')
-
+{{ $count=1 }}
     <div class="card card-custom">
         <div class="card-body">
             <!--begin: Search Form-->
@@ -27,30 +27,13 @@
                                         </span>
                                 </div>
                             </div>
-                            <div class="col-md-6 my-2 my-md-0">
-                                <div class="d-flex align-items-center">
-                                    <label
-                                        class="mr-3 mb-0 d-none d-md-block"
-                                    >Status:</label
-                                    >
-                                    <select
-                                        class="form-control"
-                                        id="kt_datatable_search_status"
-                                    >
-                                        <option value="">All</option>
-                                        <option value="1">Active</option>
-                                        <option value="2">Inactive</option>
-                                        
-                                    </select>
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <div class="col-lg-3 col-xl-4 mt-5 mt-lg-0">
                         <a
                             href="#"
                             class="btn btn-light-primary px-6 font-weight-bold"
-                        >Search</a
+                        >Register</a
                         >
                     </div>
                 </div>
@@ -64,32 +47,17 @@
             >
                 <thead>
                 <tr>
-                    <th>Profile</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Sex</th>
-                    <th>Phone Number</th>
-                    <th>College</th>
-                    <th>Role</th>
-                    <th>Status</th>
+                    <th>No</th>
+                    <th>Cafe Name</th>
                     <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($employees as $employee)
+                @foreach($All_Cafe_List as $cafe_list)
                     <tr>
-                        <td>
-                            <img class="rounded-circle w-50px h-50px" alt="5x5"
-                                 src="/{{$employee['profile']}}"
-                                 data-holder-rendered="true"></td>
-                        <td>{{ $employee['first_name'] }}</td>
-                        <td>{{ $employee['last_name'] }}</td>
-                        <td>{{ $employee['sex'] }}</td>
-                        <td>{{ $employee['phone_number'] }}</td>
-                        <td>{{ $employee['college'] ? $employee['college']['name'] : "Unassigned" }}</td>
-                        <td>{{ $employee['role'] ? $employee['role']['name'] : "Unassigned" }}</td>
-                        <td>{{ $employee['status'] ? 1 : 2 }}</td>
-                        <td>{{ $employee['id']}}</td>
+                        <td>{{ $count++ }}</td>
+                        <td>{{ $cafe_list['name'] }}</td>
+                        <td>{{$cafe_list['id']}}</td>
                     </tr>
                 @endforeach
                 </tbody>
@@ -191,7 +159,7 @@
                             // callback function support for column rendering
                             template: function template(row) {
                                 return (
-                                    `<a href="/gate/update/${row['Action']}" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit details">
+                                    `<a href="#" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit details">
 	                                    <span class="svg-icon svg-icon-md">
                                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                                  width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -206,7 +174,10 @@
                                                 </g>
                                             </svg>
 	                                     </span>
-                                    </a>`
+                                    </a>
+                                    <a href="#" class="btn btn-sm btn-clean btn-icon" title="Delete">
+								    <i class="la la-trash"></i>
+							        </a>`
                                 );
                             },
                         },
