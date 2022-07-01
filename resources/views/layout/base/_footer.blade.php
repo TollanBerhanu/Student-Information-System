@@ -7,6 +7,7 @@
         <div class="text-dark order-2 order-md-1">
             <span class="text-muted font-weight-bold mr-2">{{ date("Y") }} &copy;</span>
             <a href="/" class="text-dark-75 text-hover-primary">SSMS</a>
+           
         </div>
 
         {{-- Nav --}}

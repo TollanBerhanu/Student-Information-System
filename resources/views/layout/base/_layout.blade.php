@@ -28,6 +28,7 @@
                     @endif
 
                     @include('layout.base._content')
+                  
                 </div>
 
                 @include('layout.base._footer')

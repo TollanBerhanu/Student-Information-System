@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Model;
-
+use App\Model\User;
+use App\Model\Syncable\System;
+use App\Model\Syncable\RolePrivilege;
 use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model

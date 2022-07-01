@@ -86,6 +86,7 @@ class EmployeeController extends Controller
         return back()->with(['notification' => "Success", 'alert_type' => "success", 'message' => 'Employee registered successfully!']);
     }
 
+    // This is for handle page
     public function editPage(Request $request, $id)
     {
         if ($id == null) {

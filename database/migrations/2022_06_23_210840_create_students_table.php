@@ -24,6 +24,7 @@ class CreateStudentsTable extends Migration
             $table->date('join_year');
             $table->string('phone_number')->unique();
             $table->string('email')->unique();
+            //Should reference photo(file) table
             $table->string('profile');
             $table->integer('taken_semester');
             $table->integer('passed_semester');
