@@ -24,8 +24,29 @@ class GenerateIDController extends Controller
         $page_title = 'Generate Student ID';
         $page_description = '';
         $user = Auth::user();
-        $students = Student::all();
-        return view('pages.id.generateID', compact('page_title', 'page_description', 'user', 'students'));
+        $students = [];
+        $colleges = College::all();
+
+        return view('pages.id.generateID', compact('page_title', 'page_description', 'user', 'students', 'colleges'));
+    }
+
+    public function searchStudents(Request $request){
+        
+        $page_title = 'Generate Student ID';
+        $page_description = '';
+        $user = Auth::user();
+
+        $allStudents = Student::all();
+        $colleges = College::all();
+
+        $students = [];
+
+
+        foreach($allStudents as $stud)
+            if($stud->program->department->faculty->college->id == $request->college)
+                array_push($students, $stud);
+
+        return view('pages.id.generateID', compact('page_title', 'page_description', 'user', 'students', 'colleges'));
     }
 
     public function generateTemporaryId(Request $request){
