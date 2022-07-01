@@ -1,14 +1,17 @@
+
+
  {{-- Extends layout --}}
- {{-- @extends('layout.empty') --}}
+ @extends('layout.empty')
 
  {{-- Content --}}
  
 
-@foreach($selectedStudents as $stud)
+
+ @foreach($selectedStudents as $stud)
             {{-- {{ $stud[0]->first_name }} <br> --}}
             <div class="bg-white" style="width: 45%; display:inline-block; margin: 10px; float:left;">
                 <div class="col-md-12">
-                    <table class="table table-borderless">
+                    <table class="table table-borderless" style="border: 1px solid #333; border-bottom: none; margin: 0px;">
                         <thead>
                             <tr>
                                 <td>
@@ -23,10 +26,10 @@
                             </tr>
                         </thead>
                     </table>
-                    <table>
+                    <table class="table table-borderless" style="border: 1px solid #333; border-top: 1px dotted #333; margin: 0px;">
                         <tbody>
                             <tr>
-                                <td rowspan="4" style="padding:45px 0px; text-align:center; border: 1px solid #333; width: 30%;"> Photo </td>
+                                <td rowspan="4" style="padding:60px 0px; text-align:center; border: 1px solid #333; width: 30%;"> Photo </td>
                                 <td style="padding: 5px 15px">Name:<span class="font-weight-bold text-dark"> {{ $stud[0]->first_name." ".$stud[0]->middle_name." ".$stud[0]->last_name }}</span></td>
                             </tr>
                             <tr>
@@ -45,3 +48,5 @@
                 </div>
              </div>
         @endforeach
+
+      

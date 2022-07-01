@@ -55,8 +55,9 @@ class GenerateIDController extends Controller
         }
         // dd($selectedStudents);
         $pdf = PDF::loadView('pages.id.tempPdf', compact('selectedStudents'));
-        // download as PDF file
-        return $pdf->download('invoice.pdf');
+    
+        return view('pages.id.tempPdf', compact('selectedStudents'));    // return as blade view
+        // return $pdf->download('invoice.pdf');   // download as PDF file
     }
     
     public function generatePermanentId(Request $request){

@@ -5,17 +5,17 @@ return [
     'items' => [
         // Dashboard
         [
-            'title' => 'Temporary ID',
+            'title' => 'Generate ID',
             'root' => true,
             'icon' => 'media/svg/icons/Design/Layers.svg', // or can be 'flaticon-home' or any flaticon-*
-            'page' => 'id/temporary',
+            'page' => 'id/generate',
             'new-tab' => false,
         ],
         [
-            'title' => 'Permanent ID',
+            'title' => 'Settings',
             'root' => true,
             'icon' => 'media/svg/icons/Design/Layers.svg', // or can be 'flaticon-home' or any flaticon-*
-            'page' => 'id/permanent',
+            'page' => 'id/settings',
             'new-tab' => false,
         ],
     ]
