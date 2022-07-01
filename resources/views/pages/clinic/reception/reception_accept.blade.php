@@ -5,15 +5,25 @@
 @section('content')
 
     <div class="card card-custom">
-        <div class="card-header">
-            <h3 class="card-title">
-                Role Update Form
-            </h3>
-        </div>
         <!--begin::Form-->
-        <form method="POST" enctype="multipart/form-data" action="{{ route("roleUpdateHandle") }}">
+        <form method="POST" enctype="multipart/form-data" action="{{ route("receptionAcceptHandle") }}">
             @csrf
             <div class="card-body">
+                <div class="form-group row">
+                    <div class="image-input image-input-outline image-input-circle" id="kt_image_3">
+                        <div class="image-input-wrapper" style="background-image: url('/{{$student['profile']}}')"></div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <h3 class="card-title">
+                        Student: {{$student['first_name']." ".$student['last_name']}}
+                    </h3>
+                </div>
+                <div class="form-group row">
+                    <h3 class="card-title">
+                        ID: {{$student['student_id']}}
+                    </h3>
+                </div>
                 <div class="form-group row">
                     @if ($errors->any())
                         <div class="alert alert-danger col-10 mx-auto">
@@ -25,34 +35,21 @@
                         </div>
                     @endif
                 </div>
-                <input type="hidden" value="{{$role['id']}}" name="id">
-                <div class="form-group row">
-                    <label class="col-2 col-form-label">Name</label>
-                    <div class="col-10">
-                        <input class="form-control" type="text" value="{{ old('name') ? old('name') : $role['name'] }}" name="name"/>
-                    </div>
-                </div>
+                <input type="hidden" value="{{$student['id']}}" name="id">
                 <div class="form-group">
-                    <label>Description</label>
-                    <textarea class="form-control form-control-solid" rows="3" name="description">{{old('description') ? old('description') : $role['description']}}</textarea>
-                </div>
-                <div class="form-group">
-                    <label>System</label>
-                    <select class="form-control form-control-solid" name="system_id">
+                    <label>Room</label>
+                    <select class="form-control form-control-solid" name="room_id">
                         <option value="-1">None</option>
-                        @foreach($systems as $system)
-                            <option value="{{$system['id']}}" {{old('system_id') ? (old('system_id') == $system['id'] ? "selected" : "") : (($role['system_id'] == $system['id'] ? "selected" : "")) }}>{{$system['name']}}</option>
+                        @foreach($rooms as $room)
+                            <option value="{{$room['id']}}" {{old('room_id') ? (old('room_id') == $room['id'] ? "selected" : "") : "" }}>{{$room['name']}}</option>
                         @endforeach
                     </select>
-                    <span class="text-danger">Changing System will reset all privileges</span>
                 </div>
             </div>
             <div class="card-footer">
                 <div class="row">
-                    <div class="col-2">
-                    </div>
                     <div class="col-10">
-                        <button type="submit" class="btn btn-success mr-2">Save</button>
+                        <button type="submit" class="btn btn-success mr-2">Submit</button>
                     </div>
                 </div>
             </div>

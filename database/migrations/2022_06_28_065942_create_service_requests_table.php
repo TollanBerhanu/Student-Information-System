@@ -15,7 +15,8 @@ class CreateServiceRequestsTable extends Migration
     {
         Schema::create('service_requests', function (Blueprint $table) {
             $table->id();
-            $table->text('description');
+            $table->text('description')->nullable();
+            $table->text('response')->nullable();
             $table->boolean('accepted')->default(false);
             $table->boolean('complete')->default(false);
             $table->index('diagnosis_id');

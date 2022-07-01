@@ -85,7 +85,7 @@ class PrivilegeController extends Controller
                 'message' => 'Invalid Privilege ID!']);
         }
         $systems = System::all()->sortBy('name');
-        $page_title = 'Edit Role';
+        $page_title = 'Edit Privilege';
         $page_description = 'Update privilege information';
         $user = Auth::user();
 

@@ -7,11 +7,11 @@
     <div class="card card-custom">
         <div class="card-header">
             <h3 class="card-title">
-                Role Update Form
+                Clinic Room Update Form
             </h3>
         </div>
         <!--begin::Form-->
-        <form method="POST" enctype="multipart/form-data" action="{{ route("roleUpdateHandle") }}">
+        <form method="POST" enctype="multipart/form-data" action="{{ route("roomUpdateHandle") }}">
             @csrf
             <div class="card-body">
                 <div class="form-group row">
@@ -25,26 +25,37 @@
                         </div>
                     @endif
                 </div>
-                <input type="hidden" value="{{$role['id']}}" name="id">
+                <input type="hidden" value="{{$room['id']}}" name="id">
                 <div class="form-group row">
                     <label class="col-2 col-form-label">Name</label>
                     <div class="col-10">
-                        <input class="form-control" type="text" value="{{ old('name') ? old('name') : $role['name'] }}" name="name"/>
+                        <input class="form-control" type="text" value="{{ old('name') ? old('name') : $room['name'] }}" name="name"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Description</label>
-                    <textarea class="form-control form-control-solid" rows="3" name="description">{{old('description') ? old('description') : $role['description']}}</textarea>
+                    <textarea class="form-control form-control-solid" rows="3" name="description">{{old('description') ? old('description') : $room['description']}}</textarea>
                 </div>
                 <div class="form-group">
-                    <label>System</label>
-                    <select class="form-control form-control-solid" name="system_id">
+                    <label>Clinic</label>
+                    <select class="form-control form-control-solid" name="clinic_id">
                         <option value="-1">None</option>
-                        @foreach($systems as $system)
-                            <option value="{{$system['id']}}" {{old('system_id') ? (old('system_id') == $system['id'] ? "selected" : "") : (($role['system_id'] == $system['id'] ? "selected" : "")) }}>{{$system['name']}}</option>
+                        @foreach($clinics as $clinic)
+                            <option value="{{$clinic['id']}}" {{old('clinic_id') ? (old('clinic_id') == $clinic['id'] ? "selected" : "") : (($room['clinic_id'] == $clinic['id'] ? "selected" : "")) }}>{{$clinic['name']}}</option>
                         @endforeach
                     </select>
-                    <span class="text-danger">Changing System will reset all privileges</span>
+                    <span class="text-danger">Changing Room type will reset assignations</span>
+                </div>
+
+                <div class="form-group">
+                    <label>Room Type</label>
+                    <select class="form-control form-control-solid" name="room_type_id">
+                        <option value="-1">None</option>
+                        @foreach($room_types as $room_type)
+                            <option value="{{$room_type['id']}}" {{old('room_type_id') ? (old('room_type_id') == $room_type['id'] ? "selected" : "") : (($room['room_type_id'] == $room_type['id'] ? "selected" : "")) }}>{{$room_type['name']}}</option>
+                        @endforeach
+                    </select>
+                    <span class="text-danger">Changing Room type will reset assignations</span>
                 </div>
             </div>
             <div class="card-footer">

@@ -30,7 +30,7 @@ return [
             'root' => true,
             'submenu' => [
                 [
-                    'title' => 'Create',
+                    'title' => 'Register',
                     'page' => '/admin/role/register'
                 ]
             ]
@@ -44,7 +44,7 @@ return [
             'root' => true,
             'submenu' => [
                 [
-                    'title' => 'Create',
+                    'title' => 'Register',
                     'page' => '/admin/privilege/register'
                 ]
             ]

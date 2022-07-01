@@ -30,9 +30,9 @@
                         System: {{$role['system']['name']}}
                     </h3>
                 </div>
-                    <input type="hidden" name="id" value="{{$role['id']}}" />
-                    <input type="hidden" name="data" value="{{ old('data') ? old('data') : $role['active_privilege']}}" id="role_privilege_data_array"/>
-                    <div class="form-group row">
+                <input type="hidden" name="id" value="{{$role['id']}}" />
+                <input type="hidden" name="data" value="{{ old('data') ? old('data') : $role['active_privilege']}}" id="role_privilege_data_array"/>
+                <div class="form-group row">
                     @foreach ($privileges as $privilege)
                         <label class="col-3 col-form-label">{{$privilege['name']}}</label>
                         <div class="col-3">

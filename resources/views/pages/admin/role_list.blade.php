@@ -87,9 +87,7 @@
             let demo = function demo() {
                 let datatable = $("#kt_datatable").KTDatatable({
                     data: {
-                        saveState: {
-                            cookie: false,
-                        },
+                        saveState: false,
                     },
                     search: {
                         input: $("#kt_datatable_search_query"),

@@ -3,34 +3,33 @@
 namespace App\Http\Controllers\Clinic;
 
 use App\Http\Controllers\Controller;
-use App\Model\Clinic\Disease;
+use App\Model\Clinic\Symptom;
 use App\Model\System;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class DiseaseController extends Controller
+class SymptomController extends Controller
 {
     public function list()
     {
-
-        $diseases = Disease::all();
-        $page_title = 'Disease List';
-        $page_description = 'List of registered diseases';
+        $symptoms = Symptom::all();
+        $page_title = 'Symptom List';
+        $page_description = 'List of registered symptoms';
         $user = Auth::user();
 
-        return view('pages.clinic.disease.disease_list',
-            compact('page_title', 'page_description', 'user', 'diseases'));
+        return view('pages.clinic.symptom.symptom_list',
+            compact('page_title', 'page_description', 'user', 'symptoms'));
     }
 
 
     public function newPage()
     {
         $systems = System::all()->sortBy('name');
-        $page_title = 'Register Disease';
-        $page_description = 'Register a new disease';
+        $page_title = 'Register Symptom';
+        $page_description = 'Register a new symptom';
         $user = Auth::user();
 
-        return view('pages.clinic.disease.disease_new',
+        return view('pages.clinic.symptom.symptom_new',
             compact('page_title', 'page_description', 'user', 'systems'));
     }
 
@@ -42,41 +41,41 @@ class DiseaseController extends Controller
             'description' => ['required'],
         ]);
 
-        if (Disease::where('name', $data['name'])->count() > 0) {
+        if (Symptom::where('name', $data['name'])->count() > 0) {
             return back()->withErrors([
                 'name' => 'Name already registered.',
             ])->withInput($data);
         }
 
-        if (Disease::where('code', $data['code'])->count() > 0) {
+        if (Symptom::where('code', $data['code'])->count() > 0) {
             return back()->withErrors([
                 'code' => 'Code already registered.',
             ])->withInput($data);
         }
 
-        Disease::create($data);
-        return back()->with(['notification' => "Success", 'alert_type' => "success", 'message' => 'Disease created successfully!']);
+        Symptom::create($data);
+        return back()->with(['notification' => "Success", 'alert_type' => "success", 'message' => 'Symptom created successfully!']);
     }
 
     public function editPage(Request $request, $id)
     {
         if ($id == null) {
-            return redirect()->route('diseaseList')->with(['notification' => "Error",
+            return redirect()->route('symptomList')->with(['notification' => "Error",
                 'alert_type' => "warning",
                 'message' => 'Invalid Action!']);
         }
-        $disease = Disease::find($id);
-        if($disease == null){
-            return redirect()->route('diseaseList')->with(['notification' => "Error",
+        $symptom = Symptom::find($id);
+        if($symptom == null){
+            return redirect()->route('symptomList')->with(['notification' => "Error",
                 'alert_type' => "warning",
-                'message' => 'Invalid Disease ID!']);
+                'message' => 'Invalid Symptom ID!']);
         }
-        $page_title = 'Edit Disease';
-        $page_description = 'Update disease information';
+        $page_title = 'Edit Symptom';
+        $page_description = 'Update symptom information';
         $user = Auth::user();
 
-        return view('pages.clinic.disease.disease_update',
-            compact('page_title', 'page_description', 'user', 'disease'));
+        return view('pages.clinic.symptom.symptom_update',
+            compact('page_title', 'page_description', 'user', 'symptom'));
     }
 
     public function editHandle(Request $request): \Illuminate\Http\RedirectResponse
@@ -88,36 +87,35 @@ class DiseaseController extends Controller
             'description' => ['required'],
         ]);
 
-        $disease = Disease::find($data['id']);
-        if (!$disease) {
+        $symptom = Symptom::find($data['id']);
+        if (!$symptom) {
             return back()->withErrors([
-                'disease' => 'Unable to find disease in our records.',
+                'symptom' => 'Unable to find symptom in our records.',
             ])->withInput($data);
         }
-        $disease['description'] = $data['description'];
+        $symptom['description'] = $data['description'];
 
-        if ($disease['name'] != $data['name']) {
-            if (Disease::where('name', $data['name'])->count() > 0) {
+        if ($symptom['name'] != $data['name']) {
+            if (Symptom::where('name', $data['name'])->count() > 0) {
                 return back()->withErrors([
                     'name' => 'Name already registered.',
                 ])->withInput($data);
             }
             else{
-                $disease['name'] = $data['name'];
+                $symptom['name'] = $data['name'];
             }
         }
-
-        if ($disease['code'] != $data['code']) {
-            if (Disease::where('code', $data['code'])->count() > 0) {
+        if ($symptom['code'] != $data['code']) {
+            if (Symptom::where('code', $data['code'])->count() > 0) {
                 return back()->withErrors([
                     'code' => 'Code already registered.',
                 ])->withInput($data);
             }
             else{
-                $disease['code'] = $data['code'];
+                $symptom['code'] = $data['code'];
             }
         }
-        $disease->save();
-        return redirect()->route('diseaseList')->with(['notification' => "Success", 'alert_type' => "success", 'message' => 'Disease updated successfully!']);
+        $symptom->save();
+        return redirect()->route('symptomList')->with(['notification' => "Success", 'alert_type' => "success", 'message' => 'Symptom updated successfully!']);
     }
 }

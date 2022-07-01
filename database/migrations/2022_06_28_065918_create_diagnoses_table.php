@@ -15,15 +15,16 @@ class CreateDiagnosesTable extends Migration
     {
         Schema::create('diagnoses', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('code');
-            $table->text('description');
-            $table->text('diagnosis');
-            $table->boolean('diagnose')->default(false);
+            $table->text('description')->nullable();
+            $table->text('diagnosis')->nullable();
+            $table->boolean('accepted')->default(false);
             $table->boolean('pending_request')->default(false);
             $table->boolean('complete')->default(false);
+            $table->boolean('discarded')->default(false);
             $table->index('student_id');
             $table->foreignId('student_id')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete()->references('id')->on('students');
+            $table->index('room_id');
+            $table->foreignId('room_id')->nullable()->constrained()->cascadeOnUpdate()->onDelete('RESTRICT')->references('id')->on('rooms');
             $table->timestamps();
         });
     }

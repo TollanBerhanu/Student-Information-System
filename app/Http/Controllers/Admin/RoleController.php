@@ -133,7 +133,7 @@ class RoleController extends Controller
         }
 
         if ($role['name'] != $data['name']) {
-            if (Role::where('name', $data['name'])->count() > 0) {
+            if (Role::where('name', $data['name'])->where([['id', 'not', $role['id']]])->count() > 0) {
                 return back()->withErrors([
                     'name' => 'Name already registered.',
                 ])->withInput($data);

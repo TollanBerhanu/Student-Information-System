@@ -7,11 +7,11 @@
     <div class="card card-custom">
         <div class="card-header">
             <h3 class="card-title">
-                Role Update Form
+                Clinic Update Form
             </h3>
         </div>
         <!--begin::Form-->
-        <form method="POST" enctype="multipart/form-data" action="{{ route("roleUpdateHandle") }}">
+        <form method="POST" enctype="multipart/form-data" action="{{ route("clinicUpdateHandle") }}">
             @csrf
             <div class="card-body">
                 <div class="form-group row">
@@ -25,27 +25,27 @@
                         </div>
                     @endif
                 </div>
-                <input type="hidden" value="{{$role['id']}}" name="id">
+                <input type="hidden" value="{{$clinic['id']}}" name="id">
                 <div class="form-group row">
                     <label class="col-2 col-form-label">Name</label>
                     <div class="col-10">
-                        <input class="form-control" type="text" value="{{ old('name') ? old('name') : $role['name'] }}" name="name"/>
+                        <input class="form-control" type="text" value="{{ old('name') ? old('name') : $clinic['name'] }}" name="name"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Description</label>
-                    <textarea class="form-control form-control-solid" rows="3" name="description">{{old('description') ? old('description') : $role['description']}}</textarea>
+                    <textarea class="form-control form-control-solid" rows="3" name="description">{{old('description') ? old('description') : $clinic['description']}}</textarea>
                 </div>
-                <div class="form-group">
-                    <label>System</label>
-                    <select class="form-control form-control-solid" name="system_id">
-                        <option value="-1">None</option>
-                        @foreach($systems as $system)
-                            <option value="{{$system['id']}}" {{old('system_id') ? (old('system_id') == $system['id'] ? "selected" : "") : (($role['system_id'] == $system['id'] ? "selected" : "")) }}>{{$system['name']}}</option>
-                        @endforeach
-                    </select>
-                    <span class="text-danger">Changing System will reset all privileges</span>
-                </div>
+{{--                <div class="form-group">--}}
+{{--                    <label>System</label>--}}
+{{--                    <select class="form-control form-control-solid" name="college_id">--}}
+{{--                        <option value="-1">None</option>--}}
+{{--                        @foreach($colleges as $college)--}}
+{{--                            <option value="{{$college['id']}}" {{old('college_id') ? (old('college_id') == $college['id'] ? "selected" : "") : (($clinic['college_id'] == $college['id'] ? "selected" : "")) }}>{{$college['name']}}</option>--}}
+{{--                        @endforeach--}}
+{{--                    </select>--}}
+{{--                    <span class="text-danger">Changing System will reset connection</span>--}}
+{{--                </div>--}}
             </div>
             <div class="card-footer">
                 <div class="row">

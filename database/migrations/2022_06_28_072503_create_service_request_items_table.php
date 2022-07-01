@@ -17,6 +17,7 @@ class CreateServiceRequestItemsTable extends Migration
             $table->id();
             $table->index('service_request_id');
             $table->foreignId('service_request_id')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete()->references('id')->on('service_requests');
+            $table->string('name');
             $table->text('description');
             $table->boolean('status')->default(false);
             $table->timestamps();

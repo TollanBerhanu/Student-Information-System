@@ -10,9 +10,9 @@
             <!--begin::Search Form-->
             <div class="mb-7">
                 <div class="row align-items-center">
-                    <div class="col-lg-6 col-xl-8">
+                    <div class="col-lg-6 col-xl-6">
                         <div class="row align-items-center">
-                            <div class="col-md-6 my-2 my-md-0">
+                            <div class="col-md-8 my-2 my-md-0">
                                 <div class="input-icon">
                                     <input
                                         type="text"
@@ -25,22 +25,6 @@
                                                 class="flaticon2-search-1 text-muted"
                                             ></i>
                                         </span>
-                                </div>
-                            </div>
-                            <div class="col-md-6 my-2 my-md-0">
-                                <div class="d-flex align-items-center">
-                                    <label
-                                        class="mr-3 mb-0 d-none d-md-block"
-                                    >Status:</label
-                                    >
-                                    <select
-                                        class="form-control"
-                                        id="kt_datatable_search_status"
-                                    >
-                                        <option value="">All</option>
-                                        <option value="1">Active</option>
-                                        <option value="2">Inactive</option>
-                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -63,32 +47,23 @@
             >
                 <thead>
                 <tr>
-                    <th>Profile</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Sex</th>
-                    <th>Phone Number</th>
-                    <th>College</th>
-                    <th>Role</th>
-                    <th>Status</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Clinic</th>
+                    <th>Room Type</th>
+                    <th>User</th>
                     <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($employees as $employee)
+                @foreach($rooms as $room)
                     <tr>
-                        <td>
-                            <img class="rounded-circle w-50px h-50px" alt="5x5"
-                                 src="/{{$employee['profile']}}"
-                                 data-holder-rendered="true"></td>
-                        <td>{{ $employee['first_name'] }}</td>
-                        <td>{{ $employee['last_name'] }}</td>
-                        <td>{{ $employee['sex'] }}</td>
-                        <td>{{ $employee['phone_number'] }}</td>
-                        <td>{{ $employee['college'] ? $employee['college']['name'] : "Unassigned" }}</td>
-                        <td>{{ $employee['role'] ? $employee['role']['name'] : "Unassigned" }}</td>
-                        <td>{{ $employee['status'] ? 1 : 2 }}</td>
-                        <td>{{ $employee['id']}}</td>
+                        <td>{{ $room['name'] }}</td>
+                        <td class="text-justify">{{ $room['description'] }}</td>
+                        <td>{{ $room['clinic'] ? $room['clinic']['name'] : "Unassigned" }}</td>
+                        <td>{{ $room['room_type'] ? $room['room_type']['name'] : "Unassigned" }}</td>
+                        <td>{{ $room['user'] ? $room['user']['first_name']." ".$room['user']['last_name'] : "Unassigned" }}</td>
+                        <td>{{ $room['id']}}</td>
                     </tr>
                 @endforeach
                 </tbody>
@@ -122,73 +97,55 @@
                     },
                     columns: [
                         {
-                            field: "Profile",
+                            field: "Name",
                             type: "string",
-                            width: 75,
-                            textAlign: 'center',
-                            sortable: false
-                        }, {
-                            field: "First Name",
-                            type: "string",
-                            width: 100
+                            width: 150,
                         },
                         {
-                            field: "Last Name",
+                            field: "Description",
                             type: "string",
-                            width: 100
-                        },
-                        {
-                            field: "Sex",
-                            type: "string",
-                            width: 50,
-                        },
-                        {
-                            field: "Phone Number",
-                            type: "string",
-                            width: 150
+                            width: 200,
                         },
                         {
                             field: "College",
                             type: "string",
+                            width: 150
                         },
                         {
-                            field: "Role",
+                            field: "Room Type",
                             type: "string",
-                            width: 90
+                            width: 150
                         },
                         {
-                            field: "Status",
-                            title: "Status",
-                            autoHide: false,
-                            // callback function support for column rendering
-                            template: function template(row) {
-                                let status = {
-                                    1: {
-                                        title: "Active",
-                                        class: " label-light-success",
-                                    },
-                                    2: {
-                                        title: "Inactive",
-                                        class: " label-light-danger",
-                                    }
-                                };
-                                return (
-                                    '<span class="label font-weight-bold label-lg' +
-                                    status[row.Status]["class"] +
-                                    ' label-inline">' +
-                                    status[row.Status].title +
-                                    "</span>"
-                                );
-                            },
+                            field: "User",
+                            type: "string",
+                            width: 150
                         },
                         {
                             field: "Action",
                             title: "Action",
+                            width: 100,
                             autoHide: false,
                             // callback function support for column rendering
                             template: function template(row) {
                                 return (
-                                    `<a href="/admin/employee/update/${row['Action']}" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit details">
+                                    `<a href="/clinic/room/assign/${row['Action']}" class="btn btn-sm btn-clean btn-icon mr-2" title="Assign User">
+	                                    <span class="svg-icon svg-icon-md">
+                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                 width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                    <rect x="0" y="0" width="24" height="24"/>
+                                                    <path
+                                                        d="M8,17.9148182 L8,5.96685884 C8,5.56391781 8.16211443,5.17792052 8.44982609,4.89581508 L10.965708,2.42895648 C11.5426798,1.86322723 12.4640974,1.85620921 13.0496196,2.41308426 L15.5337377,4.77566479 C15.8314604,5.0588212 16,5.45170806 16,5.86258077 L16,17.9148182 C16,18.7432453 15.3284271,19.4148182 14.5,19.4148182 L9.5,19.4148182 C8.67157288,19.4148182 8,18.7432453 8,17.9148182 Z"
+                                                        fill="#000000" fill-rule="nonzero"
+                                                        transform="translate(12.000000, 10.707409) rotate(-135.000000) translate(-12.000000, -10.707409) "/>
+                                                    <rect fill="#000000" opacity="0.3" x="5" y="20" width="15" height="2"
+                                                          rx="1"/>
+                                                </g>
+                                            </svg>
+	                                     </span>
+                                    </a>
+                                    <a href="/clinic/room/update/${row['Action']}" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit details">
 	                                    <span class="svg-icon svg-icon-md">
                                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                                  width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -233,7 +190,6 @@
             KTDatatableHtmlTableDemo.init();
         });
 
-        var avatar3 = new KTImageInput('kt_image_3');
 
         toastr.options = {
             "closeButton": true,
@@ -256,7 +212,7 @@
 
         var type = "{{ Session::get('alert_type', 'info') }}";
         //but the type var gets assigned with default value(info)
-        switch(type){
+        switch (type) {
             case 'info':
                 toastr.info("{{ Session::get('message') }}", "{{ Session::get('notification') }}");
                 break;
@@ -276,4 +232,3 @@
         @endif
     </script>
 @endsection
-

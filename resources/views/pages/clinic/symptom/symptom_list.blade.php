@@ -10,9 +10,9 @@
             <!--begin::Search Form-->
             <div class="mb-7">
                 <div class="row align-items-center">
-                    <div class="col-lg-6 col-xl-8">
+                    <div class="col-lg-6 col-xl-6">
                         <div class="row align-items-center">
-                            <div class="col-md-6 my-2 my-md-0">
+                            <div class="col-md-8 my-2 my-md-0">
                                 <div class="input-icon">
                                     <input
                                         type="text"
@@ -25,22 +25,6 @@
                                                 class="flaticon2-search-1 text-muted"
                                             ></i>
                                         </span>
-                                </div>
-                            </div>
-                            <div class="col-md-6 my-2 my-md-0">
-                                <div class="d-flex align-items-center">
-                                    <label
-                                        class="mr-3 mb-0 d-none d-md-block"
-                                    >Status:</label
-                                    >
-                                    <select
-                                        class="form-control"
-                                        id="kt_datatable_search_status"
-                                    >
-                                        <option value="">All</option>
-                                        <option value="1">Active</option>
-                                        <option value="2">Inactive</option>
-                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -63,32 +47,19 @@
             >
                 <thead>
                 <tr>
-                    <th>Profile</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Sex</th>
-                    <th>Phone Number</th>
-                    <th>College</th>
-                    <th>Role</th>
-                    <th>Status</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Code</th>
                     <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($employees as $employee)
+                @foreach($symptoms as $symptom)
                     <tr>
-                        <td>
-                            <img class="rounded-circle w-50px h-50px" alt="5x5"
-                                 src="/{{$employee['profile']}}"
-                                 data-holder-rendered="true"></td>
-                        <td>{{ $employee['first_name'] }}</td>
-                        <td>{{ $employee['last_name'] }}</td>
-                        <td>{{ $employee['sex'] }}</td>
-                        <td>{{ $employee['phone_number'] }}</td>
-                        <td>{{ $employee['college'] ? $employee['college']['name'] : "Unassigned" }}</td>
-                        <td>{{ $employee['role'] ? $employee['role']['name'] : "Unassigned" }}</td>
-                        <td>{{ $employee['status'] ? 1 : 2 }}</td>
-                        <td>{{ $employee['id']}}</td>
+                        <td>{{ $symptom['name'] }}</td>
+                        <td class="text-justify">{{ $symptom['description'] }}</td>
+                        <td class="text-justify">{{ $symptom['code'] }}</td>
+                        <td>{{ $symptom['id']}}</td>
                     </tr>
                 @endforeach
                 </tbody>
@@ -122,73 +93,29 @@
                     },
                     columns: [
                         {
-                            field: "Profile",
+                            field: "Name",
                             type: "string",
-                            width: 75,
-                            textAlign: 'center',
-                            sortable: false
-                        }, {
-                            field: "First Name",
-                            type: "string",
-                            width: 100
+                            width: 150,
                         },
                         {
-                            field: "Last Name",
+                            field: "Description",
                             type: "string",
-                            width: 100
+                            width: 350,
                         },
                         {
-                            field: "Sex",
-                            type: "string",
-                            width: 50,
-                        },
-                        {
-                            field: "Phone Number",
+                            field: "Code",
                             type: "string",
                             width: 150
                         },
                         {
-                            field: "College",
-                            type: "string",
-                        },
-                        {
-                            field: "Role",
-                            type: "string",
-                            width: 90
-                        },
-                        {
-                            field: "Status",
-                            title: "Status",
-                            autoHide: false,
-                            // callback function support for column rendering
-                            template: function template(row) {
-                                let status = {
-                                    1: {
-                                        title: "Active",
-                                        class: " label-light-success",
-                                    },
-                                    2: {
-                                        title: "Inactive",
-                                        class: " label-light-danger",
-                                    }
-                                };
-                                return (
-                                    '<span class="label font-weight-bold label-lg' +
-                                    status[row.Status]["class"] +
-                                    ' label-inline">' +
-                                    status[row.Status].title +
-                                    "</span>"
-                                );
-                            },
-                        },
-                        {
                             field: "Action",
                             title: "Action",
+                            width: 100,
                             autoHide: false,
                             // callback function support for column rendering
                             template: function template(row) {
                                 return (
-                                    `<a href="/admin/employee/update/${row['Action']}" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit details">
+                                    `<a href="/clinic/symptom/update/${row['Action']}" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit details">
 	                                    <span class="svg-icon svg-icon-md">
                                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                                  width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -233,7 +160,6 @@
             KTDatatableHtmlTableDemo.init();
         });
 
-        var avatar3 = new KTImageInput('kt_image_3');
 
         toastr.options = {
             "closeButton": true,
@@ -256,7 +182,7 @@
 
         var type = "{{ Session::get('alert_type', 'info') }}";
         //but the type var gets assigned with default value(info)
-        switch(type){
+        switch (type) {
             case 'info':
                 toastr.info("{{ Session::get('message') }}", "{{ Session::get('notification') }}");
                 break;
@@ -276,4 +202,3 @@
         @endif
     </script>
 @endsection
-
