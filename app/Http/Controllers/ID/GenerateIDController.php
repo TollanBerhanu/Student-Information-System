@@ -46,6 +46,7 @@ class GenerateIDController extends Controller
             if($stud->program->department->faculty->college->id == $request->college)
                 array_push($students, $stud);
 
+        // return back()->with(compact('page_title', 'page_description', 'user', 'students', 'colleges'));
         return view('pages.id.generateID', compact('page_title', 'page_description', 'user', 'students', 'colleges'));
     }
 
