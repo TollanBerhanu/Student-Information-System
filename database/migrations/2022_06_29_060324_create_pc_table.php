@@ -15,8 +15,8 @@ class CreatePcTable extends Migration
     {
         Schema::create('pc', function (Blueprint $table) {
             $table->id();
-            $table->index('stud_id');
-            $table->foreignId('stud_id')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete()->references('id')->on('students');
+            $table->index('student_id');
+            $table->foreignId('student_id')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete()->references('id')->on('students');
             $table->string('t_mark');
             $table->string('serialNo');
             $table->string('color');

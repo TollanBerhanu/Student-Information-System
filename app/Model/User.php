@@ -52,4 +52,8 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\Model\Syncable\College');
     }
+    public function gate_emp_record()
+    {
+        return $this->belongsTo('App\Model\Gate\Gate_Emp_Record');
+    }
 }

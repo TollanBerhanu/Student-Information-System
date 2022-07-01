@@ -49,6 +49,20 @@ return [
             ]
         ]
     ],
+
+    [
+        'title' => 'Employee List',
+        'desc' => '',
+        'icon' => 'media/svg/icons/Design/Bucket.svg',
+        'bullet' => 'dot',
+        'root' => true,
+        'submenu' => [
+            [
+                'title' => 'Employee Attend List',
+                'page' => '/gate/attendance'
+            ]
+        ]
+    ],
     ]
 
 ];

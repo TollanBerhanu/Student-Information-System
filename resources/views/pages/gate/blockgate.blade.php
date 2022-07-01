@@ -4,9 +4,6 @@
 
 {{-- Content --}}
 @section('content')
-
-
-
 <div class="row">
 <div class="col-lg-12 margin-6">
 <div class="content-header">
@@ -31,7 +28,8 @@
         <form class="form-inline my-2 my-lg-0" method="get" action="{{url('/gate/student/permitedStudent')}}">
           <input type="search" class="form-control mr-sm-2"  style="margin-left: 20%!important" name="query" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success my-2 my-sm-0" type=submit> Search</button>
-            </form>
+          <a href="{{url('/')}}">back</a>  
+        </form>
                
               </div>
               
@@ -41,11 +39,15 @@
              <table id="example1" class="table table-bordered table-striped">
            
                <tbody>
-               
+            
                @foreach($block_gate as $a)
               
                <tr>
+                @if(!$permited_college)
+             <h1 style="color:red;margin-left: 20%!important">Alert : This is not your College</h1>
+                @else
              <h1 style="color:red;margin-left: 20%!important">Alert : {{$a->alert}}</h1>
+            @endif
              <td><img src="{{asset ('uploads/profile/wrongicon.jpg')}}"  width="400px" height="520px" alt=""></td>
              <td>
              <a class="btn btn-info" href="">
@@ -66,6 +68,8 @@
             
            
          @endforeach
+         
+      
                </tbody>
             
              </table>

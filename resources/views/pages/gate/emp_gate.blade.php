@@ -31,7 +31,7 @@
                                 <div class="d-flex align-items-center">
                                     <label
                                         class="mr-3 mb-0 d-none d-md-block"
-                                    >Role:</label
+                                    >Status:</label
                                     >
                                     <select
                                         class="form-control"
@@ -191,7 +191,7 @@
                             // callback function support for column rendering
                             template: function template(row) {
                                 return (
-                                    `<a href="/admin/employee/update/${row['Action']}" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit details">
+                                    `<a href="/gate/update/${row['Action']}" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit details">
 	                                    <span class="svg-icon svg-icon-md">
                                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                                  width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
