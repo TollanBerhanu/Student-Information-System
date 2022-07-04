@@ -3,9 +3,10 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Clinic\ClinicPagesController;
-Route::group(['prefix' => 'clinic'], function (){
 
-    Route::get('', 'Clinic\ClinicPagesController@index')->middleware(['auth','privilege:clinic_dashboard'])->name('clinicDashboard');
+Route::group(['prefix' => 'clinic'], function () {
+
+    Route::get('', 'Clinic\ClinicPagesController@index')->middleware(['auth', 'privilege:clinic_dashboard'])->name('clinicDashboard');
 
 
     Route::group(['prefix' => '/clinic'], function () {
@@ -16,6 +17,14 @@ Route::group(['prefix' => 'clinic'], function (){
         Route::post('/update', 'Clinic\ClinicController@editHandle')->middleware(['auth', 'privilege:clinic_update'])->name('clinicUpdateHandle');
     });
 
+
+    Route::group(['prefix' => '/room/service'], function () {
+        Route::get('', 'Clinic\RoomServiceController@list')->middleware(['auth', 'privilege:room_service_list'])->name('room_ServiceList');
+        Route::get('/register', 'Clinic\RoomServiceController@newPage')->middleware(['auth', 'privilege:room_service_register'])->name('room_ServiceRegisterPage');
+        Route::post('/register', 'Clinic\RoomServiceController@newHandle')->middleware(['auth', 'privilege:room_service_register'])->name('room_ServiceRegisterHandle');
+        Route::get('/update/{id}', 'Clinic\RoomServiceController@editPage')->middleware(['auth', 'privilege:room_service_update'])->name('room_ServiceUpdatePage');
+        Route::post('/update', 'Clinic\RoomServiceController@editHandle')->middleware(['auth', 'privilege:room_service_update'])->name('room_ServiceUpdateHandle');
+    });
 
     Route::group(['prefix' => '/room'], function () {
         Route::get('', 'Clinic\RoomController@list')->middleware(['auth', 'privilege:room_list'])->name('roomList');
@@ -52,20 +61,25 @@ Route::group(['prefix' => 'clinic'], function (){
 
     Route::group(['prefix' => '/diagnosis'], function () {
         Route::get('/list/new', 'Clinic\DiagnosisController@newList')->middleware(['auth', 'privilege:diagnosis_new_list'])->name('diagnosis_NewList');
+        Route::get('/list/pending', 'Clinic\DiagnosisController@pendingList')->middleware(['auth', 'privilege:diagnosis_new_list'])->name('diagnosis_PendingList');
         Route::get('/accept/{id}', 'Clinic\DiagnosisController@acceptPage')->middleware(['auth', 'privilege:diagnosis_accept_request'])->name('diagnosisAcceptPage');
         Route::get('/diagnose/{id}', 'Clinic\DiagnosisController@diagnosePage')->middleware(['auth', 'privilege:diagnosis_diagnose_request'])->name('diagnosisDiagnosePage');
 
         Route::post('/forward', 'Clinic\DiagnosisController@forwardHandle')->middleware(['auth', 'privilege:diagnosis_forward_request'])->name('diagnosisForwardHandle');
         Route::post('/complete', 'Clinic\DiagnosisController@completeHandle')->middleware(['auth', 'privilege:diagnosis_complete_request'])->name('diagnosisCompleteHandle');
+        Route::post('/save', 'Clinic\DiagnosisController@saveHandle')->middleware(['auth', 'privilege:diagnosis_complete_request'])->name('diagnosisSaveHandle');
     });
 
     Route::group(['prefix' => '/service'], function () {
         Route::get('/list/new', 'Clinic\ServiceController@newList')->middleware(['auth', 'privilege:service_new_list'])->name('service_NewList');
+        Route::get('/list/pending', 'Clinic\ServiceController@pendingList')->middleware(['auth', 'privilege:service_new_list'])->name('service_PendingList');
         Route::get('/accept/{id}', 'Clinic\ServiceController@acceptPage')->middleware(['auth', 'privilege:service_accept_request'])->name('serviceAcceptPage');
-        Route::get('/serve/{id}', 'Clinic\ServiceController@diagnosePage')->middleware(['auth', 'privilege:service_diagnose_request'])->name('serviceServePage');
+        Route::get('/serve/{id}', 'Clinic\ServiceController@servePage')->middleware(['auth', 'privilege:service_serve_request'])->name('serviceServePage');
 
         Route::post('/complete', 'Clinic\ServiceController@completeHandle')->middleware(['auth', 'privilege:service_complete_request'])->name('serviceCompleteHandle');
     });
+
+
 });
 // privilege list
 
@@ -86,6 +100,11 @@ Route::group(['prefix' => 'clinic'], function (){
 // room_register
 // room_update
 // room_assign
+
+
+// room_service_list
+// room_service_register
+// room_service_update
 
 // clinic_list
 // clinic_register

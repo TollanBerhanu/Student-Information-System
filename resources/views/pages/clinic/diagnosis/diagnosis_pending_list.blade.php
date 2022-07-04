@@ -50,25 +50,27 @@
                 <thead>
                 <tr>
                     <th>Profile</th>
-                    <th>Full Name</th>
-                    <th>Request Description</th>
-                    <th>Service Request Items</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Student ID</th>
+                    <th>Sex</th>
                     <th>Date</th>
                     <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($service_requests as $service_request)
+                @foreach($diagnoses as $diagnosis)
                     <tr>
                         <td>
                             <img class="rounded-circle w-50px h-50px" alt="5x5"
-                                 src="/{{$service_request['diagnosis']['student']['profile']}}"
+                                 src="/{{$diagnosis['student']['profile']}}"
                                  data-holder-rendered="true"></td>
-                        <td>{{ $service_request['diagnosis']['student']['first_name']. " " .$service_request['diagnosis']['student']['last_name'] }}</td>
-                        <td>{{ $service_request['description'] }}</td>
-                        <td>{{ count($service_request['service_request_items']) }}</td>
-                        <td>{{ $service_request['created_at']->format('M d, Y  H:i') }}</td>
-                        <td>{{ $service_request['id']}}</td>
+                        <td>{{ $diagnosis['student']['first_name'] }}</td>
+                        <td>{{ $diagnosis['student']['last_name'] }}</td>
+                        <td>{{ $diagnosis['student']['student_id'] }}</td>
+                        <td>{{ $diagnosis['student']['sex'] }}</td>
+                        <td>{{ $diagnosis['created_at']->format('M d, Y  H:i') }}</td>
+                        <td>{{ $diagnosis['id']}}</td>
                     </tr>
                 @endforeach
                 </tbody>
@@ -108,19 +110,24 @@
                             textAlign: 'center',
                             sortable: false
                         }, {
-                            field: "Full Name",
+                            field: "First Name",
                             type: "string",
                             width: 100
                         },
                         {
-                            field: "Request Description",
+                            field: "Last Name",
                             type: "string",
-                            width: 200
+                            width: 100
                         },
                         {
-                            field: "Service Request Items",
+                            field: "ID",
                             type: "string",
-                            width: 150,
+                            width: 100
+                        },
+                        {
+                            field: "Sex",
+                            type: "string",
+                            width: 50,
                         },
                         {
                             field: "Date",
@@ -134,8 +141,8 @@
                             // callback function support for column rendering
                             template: function template(row) {
                                 return (
-                                    `<a href="/clinic/service/accept/${row['Action']}" class="btn btn-primary btn-clean  mr-2" title="Select Student">
-	                                     Accept
+                                    `<a href="/clinic/diagnosis/diagnose/${row['Action']}" class="btn btn-primary btn-clean  mr-2" title="View Diagnosis">
+	                                     View
                                     </a>`
                                 );
                             },

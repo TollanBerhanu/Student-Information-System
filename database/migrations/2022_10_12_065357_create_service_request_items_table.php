@@ -15,11 +15,13 @@ class CreateServiceRequestItemsTable extends Migration
     {
         Schema::create('service_request_items', function (Blueprint $table) {
             $table->id();
-            $table->index('service_request_id');
-            $table->foreignId('service_request_id')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete()->references('id')->on('service_requests');
-            $table->string('name');
             $table->text('description');
             $table->boolean('status')->default(false);
+            $table->boolean('complete')->default(false);
+            $table->index('service_request_id');
+            $table->foreignId('service_request_id')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete()->references('id')->on('service_requests');
+            $table->index('service_id');
+            $table->foreignId('service_id')->nullable()->constrained()->cascadeOnUpdate()->nullOnDelete()->references('id')->on('services');
             $table->timestamps();
         });
     }

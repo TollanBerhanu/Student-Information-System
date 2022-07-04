@@ -8,38 +8,36 @@
         <div class="card-body">
             <!--begin: Search Form-->
             <!--begin::Search Form-->
-{{--            <div class="mb-7">--}}
-{{--                <div class="row align-items-center">--}}
-{{--                    <div class="col-lg-6 col-xl-8">--}}
-{{--                        <div class="row align-items-center">--}}
-{{--                            <div class="col-md-6 my-2 my-md-0">--}}
-
-{{--                                <div class="input-icon">--}}
-{{--                                    <input--}}
-{{--                                        type="text"--}}
-{{--                                        class="form-control"--}}
-{{--                                        placeholder="Search..."--}}
-{{--                                        onkeyup="input_changed(this)"--}}
-{{--                                        id="kt_datatable_search_query"--}}
-{{--                                    />--}}
-{{--                                    <span>--}}
-{{--                                            <i--}}
-{{--                                                class="flaticon2-search-1 text-muted"--}}
-{{--                                            ></i>--}}
-{{--                                        </span>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    <div class="col-lg-3 col-xl-4 mt-5 mt-lg-0">--}}
-{{--                        <a--}}
-{{--                            href="?query="--}}
-{{--                            id="kt_datatable_search_query_link"--}}
-{{--                            class="btn btn-light-primary px-6 font-weight-bold"--}}
-{{--                        >Search</a>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
+            <div class="mb-7">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 col-xl-6">
+                        <div class="row align-items-center">
+                            <div class="col-md-8 my-2 my-md-0">
+                                <div class="input-icon">
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Search..."
+                                        id="kt_datatable_search_query"
+                                    />
+                                    <span>
+                                            <i
+                                                class="flaticon2-search-1 text-muted"
+                                            ></i>
+                                        </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-xl-4 mt-5 mt-lg-0">
+                        <a
+                            href="#"
+                            class="btn btn-light-primary px-6 font-weight-bold"
+                        >Search</a
+                        >
+                    </div>
+                </div>
+            </div>
             <!--end::Search Form-->
             <!--end: Search Form-->
             <!--begin: Datatable-->
@@ -49,26 +47,21 @@
             >
                 <thead>
                 <tr>
-                    <th>Profile</th>
-                    <th>Full Name</th>
-                    <th>Request Description</th>
-                    <th>Service Request Items</th>
-                    <th>Date</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Clinic</th>
+                    <th>Room</th>
                     <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($service_requests as $service_request)
+                @foreach($room_services as $room_service)
                     <tr>
-                        <td>
-                            <img class="rounded-circle w-50px h-50px" alt="5x5"
-                                 src="/{{$service_request['diagnosis']['student']['profile']}}"
-                                 data-holder-rendered="true"></td>
-                        <td>{{ $service_request['diagnosis']['student']['first_name']. " " .$service_request['diagnosis']['student']['last_name'] }}</td>
-                        <td>{{ $service_request['description'] }}</td>
-                        <td>{{ count($service_request['service_request_items']) }}</td>
-                        <td>{{ $service_request['created_at']->format('M d, Y  H:i') }}</td>
-                        <td>{{ $service_request['id']}}</td>
+                        <td>{{ $room_service['name'] }}</td>
+                        <td class="text-justify">{{ $room_service['description'] }}</td>
+                        <td>{{ $room_service['room'] ? $room_service['room']['clinic']['name'] : "Unassigned" }}</td>
+                        <td>{{ $room_service['room'] ? $room_service['room']['name'] : "Unassigned" }}</td>
+                        <td>{{ $room_service['id']}}</td>
                     </tr>
                 @endforeach
                 </tbody>
@@ -102,40 +95,48 @@
                     },
                     columns: [
                         {
-                            field: "Profile",
-                            type: "string",
-                            width: 75,
-                            textAlign: 'center',
-                            sortable: false
-                        }, {
-                            field: "Full Name",
-                            type: "string",
-                            width: 100
-                        },
-                        {
-                            field: "Request Description",
-                            type: "string",
-                            width: 200
-                        },
-                        {
-                            field: "Service Request Items",
+                            field: "Name",
                             type: "string",
                             width: 150,
                         },
                         {
-                            field: "Date",
+                            field: "Description",
+                            type: "string",
+                            width: 200,
+                        },
+                        {
+                            field: "Clinic",
+                            type: "string",
+                            width: 150
+                        },
+                        {
+                            field: "Room",
                             type: "string",
                             width: 150
                         },
                         {
                             field: "Action",
                             title: "Action",
+                            width: 100,
                             autoHide: false,
                             // callback function support for column rendering
                             template: function template(row) {
                                 return (
-                                    `<a href="/clinic/service/accept/${row['Action']}" class="btn btn-primary btn-clean  mr-2" title="Select Student">
-	                                     Accept
+                                    ` <a href="/clinic/room/service/update/${row['Action']}" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit details">
+	                                    <span class="svg-icon svg-icon-md">
+                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                 width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                    <rect x="0" y="0" width="24" height="24"/>
+                                                    <path
+                                                        d="M8,17.9148182 L8,5.96685884 C8,5.56391781 8.16211443,5.17792052 8.44982609,4.89581508 L10.965708,2.42895648 C11.5426798,1.86322723 12.4640974,1.85620921 13.0496196,2.41308426 L15.5337377,4.77566479 C15.8314604,5.0588212 16,5.45170806 16,5.86258077 L16,17.9148182 C16,18.7432453 15.3284271,19.4148182 14.5,19.4148182 L9.5,19.4148182 C8.67157288,19.4148182 8,18.7432453 8,17.9148182 Z"
+                                                        fill="#000000" fill-rule="nonzero"
+                                                        transform="translate(12.000000, 10.707409) rotate(-135.000000) translate(-12.000000, -10.707409) "/>
+                                                    <rect fill="#000000" opacity="0.3" x="5" y="20" width="15" height="2"
+                                                          rx="1"/>
+                                                </g>
+                                            </svg>
+	                                     </span>
                                     </a>`
                                 );
                             },
@@ -166,7 +167,6 @@
             KTDatatableHtmlTableDemo.init();
         });
 
-        var avatar3 = new KTImageInput('kt_image_3');
 
         toastr.options = {
             "closeButton": true,
@@ -189,7 +189,7 @@
 
         var type = "{{ Session::get('alert_type', 'info') }}";
         //but the type var gets assigned with default value(info)
-        switch(type){
+        switch (type) {
             case 'info':
                 toastr.info("{{ Session::get('message') }}", "{{ Session::get('notification') }}");
                 break;
@@ -207,14 +207,5 @@
                 break;
         }
         @endif
-
-        function input_changed(input){
-            let search = document.getElementById('kt_datatable_search_query_link');
-            let link = search.href;
-            link = link.split('=')[0];
-            link += '=' + input.value;
-            search.href = link;
-        }
     </script>
 @endsection
-

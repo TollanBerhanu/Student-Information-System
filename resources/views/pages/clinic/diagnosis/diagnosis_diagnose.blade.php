@@ -38,8 +38,10 @@
             <div class="card-body">
                 <div class="tab-content">
                     <!-- Complete Diagnosis -->
-                    <div class="tab-pane fade show active" id="kt_tab_pane_1_4" role="tabpanel" aria-labelledby="kt_tab_pane_1_4">
-                        <form method="POST" enctype="multipart/form-data" action="{{ route("diagnosisCompleteHandle") }}">
+                    <div class="tab-pane fade show active" id="kt_tab_pane_1_4" role="tabpanel"
+                         aria-labelledby="kt_tab_pane_1_4">
+                        <form method="POST" enctype="multipart/form-data"
+                              action="{{ route("diagnosisCompleteHandle") }}">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group row">
@@ -66,18 +68,19 @@
                                 </div>
                                 <input type="hidden" name="id" value="{{$diagnosis['id']}}"/>
                                 <input type="hidden" name="symptom_list"
-                                       value="{{ old('symptom_list') ? old('symptom_list') : '[]'}}"
+                                       value="{{ old('symptom_list') ? old('symptom_list') : $diagnosis_symptoms}}"
                                        id="symptom_data_array"/>
                                 <input type="hidden" name="disease_list"
-                                       value="{{ old('disease_list') ? old('disease_list') : '[]'}}"
+                                       value="{{ old('disease_list') ? old('disease_list') : $diagnosis_diseases}}"
                                        id="disease_data_array"/>
                                 <div class="form-group row">
                                     <label>Description</label>
                                     <textarea class="form-control form-control-solid" rows="3"
-                                              name="description">{{old('description')}}</textarea>
+                                              name="description">{{old('description') ? old('description') : $diagnosis['description']}}</textarea>
                                 </div>
                                 <div class="form-group">
-                                    <div class="accordion accordion-light accordion-toggle-arrow" id="symptoms_accordion">
+                                    <div class="accordion accordion-light accordion-toggle-arrow"
+                                         id="symptoms_accordion">
                                         <div class="card">
                                             <div class="card-header" id="headingOne2">
                                                 <div class="card-title" data-toggle="collapse"
@@ -108,13 +111,106 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <!-- Services -->
+                                    <div class="card-header">
+                                        <div class="card-title">
+                                            <h3 class="card-label">
+                                                Services
+                                                <small>({{count($diagnosis['services'])}})</small>
+                                            </h3>
+                                        </div>
+                                    </div>
+                                    <div class="card-body overflow-auto example2-viewport">
+                                        @if(count($diagnosis['services']) > 0)
+                                            <div class="d-flex flex-row-fluid mb-2 example2-content  ">
+                                                @foreach($diagnosis['services'] as $diag_service)
+                                                    <div class="card card-custom col-sm-4 col-md-6 mx-2 ">
+                                                        <div class="card-header">
+                                                            <div class="card-title">
+                                                                <h3 class="card-label">
+                                                                    {{$diag_service['room']['name']}}
+                                                                    <small>{{$diag_service['created_at']->format('M d, Y  H:i')}}
+                                                                        ({{$diag_service['complete'] ? "Complete" : "Pending"}})</small>
+                                                                </h3>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <div>
+                                                                <div>
+                                                                    <div
+                                                                        class="d-flex flex-column font-weight-bold">
+                                                                        <div
+                                                                            class="text-dark text-hover-primary mb-1 font-size-lg">
+                                                                            Description
+                                                                        </div>
+                                                                        <span
+                                                                            class="text-muted">{{$diag_service['description'] ? $diag_service['description'] : "--"}}</span>
+                                                                    </div>
+                                                                    <div
+                                                                        class="d-flex flex-column font-weight-bold">
+                                                                        <div
+                                                                            class="text-dark text-hover-primary mb-1 font-size-lg">
+                                                                            Response
+                                                                        </div>
+                                                                        <span
+                                                                            class="text-muted">{{$diag_service['response'] ? $diag_service['response'] : "--"}}</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div
+                                                                    class="d-flex flex-column font-weight-bold mt-5">
+                                                                    <div
+                                                                        class="text-dark text-hover-primary mb-3 font-size-lg">
+                                                                        Service Items
+                                                                        <small>({{count($diag_service['service_request_items'])}})</small>
+                                                                    </div>
+                                                                    <div class="row mb-5 h-250px overflow-auto">
+                                                                        @foreach($diag_service['service_request_items'] as $service_item)
+                                                                            <div class="col-lg-12 mt-5">
+                                                                                <div
+                                                                                    class="card card-custom card-stretch">
+                                                                                    <div class="card-header">
+                                                                                        <div class="card-title">
+                                                                                            <h3 class="card-label"> {{$service_item['service']['name']}}
+                                                                                                <small> {{$service_item['service']['description']}}</small>
+                                                                                            </h3>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="card-body">
+                                                                                        <div
+                                                                                            class="d-flex flex-column">
+                                                                                                <span
+                                                                                                    class="text-muted">Description: {{$service_item['complete'] ? $service_item['description'] : "--"}}</span>
+                                                                                            <span
+                                                                                                class="text-muted">Status: {{$service_item['complete'] ? ($service_item['status'] ? "True" : "False") : "--"}}</span>
+                                                                                            <span
+                                                                                                class="text-muted">File: {{$service_item['complete'] ? ($service_item['status'] ? "True" : "False") : "--"}}</span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        @endforeach
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        @endif
+                                        @if(count($diagnosis['services']) == 0)
+                                            --
+                                        @endif
+                                    </div>
+                                </div>
                                 <div class="form-group row">
                                     <label>Diagnosis</label>
                                     <textarea class="form-control form-control-solid" rows="3"
-                                              name="diagnosis">{{old('diagnosis')}}</textarea>
+                                              name="diagnosis">{{old('diagnosis')  ? old('diagnosis') : $diagnosis['diagnosis']}}</textarea>
                                 </div>
                                 <div class="form-group">
-                                    <div class="accordion accordion-light accordion-toggle-arrow" id="diseases_accordion">
+                                    <div class="accordion accordion-light accordion-toggle-arrow"
+                                         id="diseases_accordion">
                                         <div class="card">
                                             <div class="card-header" id="headingTwo2">
                                                 <div class="card-title collapsed" data-toggle="collapse"
@@ -147,7 +243,10 @@
                             </div>
                             <div class="card-footer">
                                 <div class="row">
-                                    <div class="col-10">
+                                    <div class="col-2">
+                                        <button formaction="{{ route("diagnosisSaveHandle") }}" class="btn btn-success mr-2">Save</button>
+                                    </div>
+                                    <div class="col-2">
                                         <button type="submit" class="btn btn-success mr-2">Complete</button>
                                     </div>
                                 </div>
@@ -156,7 +255,8 @@
                     </div>
                     <!-- Forward to room -->
                     <div class="tab-pane fade" id="kt_tab_pane_2_4" role="tabpanel" aria-labelledby="kt_tab_pane_2_4">
-                        <form method="POST" enctype="multipart/form-data" action="{{ route("diagnosisForwardHandle") }}">
+                        <form method="POST" enctype="multipart/form-data"
+                              action="{{ route("diagnosisForwardHandle") }}">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group row">
@@ -180,69 +280,23 @@
                                     <textarea class="form-control form-control-solid" rows="3"
                                               name="description">{{old('description')}}</textarea>
                                 </div>
-                                <div class="form-group">
-                                    <div id="kt_repeater_1">
-                                        <div class="form-group row" id="kt_repeater_1">
-                                            <label class="col-lg-2 col-form-label text-right">Service Request Item:</label>
-                                            <div data-repeater-list="" class="col-lg-10">
-                                                <div data-repeater-item class="form-group row align-items-center">
-                                                    <div class="col-md-3">
-                                                        <input type="text" name="service_item[0]" class="form-control" placeholder="Service Item Name"/>
-                                                        <div class="d-md-none mb-2"></div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <a href="javascript:;" data-repeater-delete="" class="btn btn-sm font-weight-bolder btn-light-danger">
-                                                            Delete
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div data-repeater-item class="form-group row align-items-center">
-                                                    <div class="col-md-3">
-                                                        <input type="text" name="service_item[1]" class="form-control" placeholder="Service Item Name"/>
-                                                        <div class="d-md-none mb-2"></div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <a href="javascript:;" data-repeater-delete="" class="btn btn-sm font-weight-bolder btn-light-danger">
-                                                            Delete
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div data-repeater-item class="form-group row align-items-center">
-                                                    <div class="col-md-3">
-                                                        <input type="text" name="service_item[2]" class="form-control" placeholder="Service Item Name"/>
-                                                        <div class="d-md-none mb-2"></div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <a href="javascript:;" data-repeater-delete="" class="btn btn-sm font-weight-bolder btn-light-danger">
-                                                            Delete
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-lg-2 col-form-label text-right"></label>
-                                            <div class="col-lg-4">
-                                                <a href="javascript:;" data-repeater-create="" class="btn btn-sm font-weight-bolder btn-light-primary">
-                                                    Add
-                                                </a>
-                                            </div>
-                                        </div>
+                                <div class="form-group row">
+                                    <label>Services</label>
+                                    <div class="w-100 col-lg-4 col-md-9 col-sm-12">
+                                        <select class="form-control select2 w-100" id="kt_select2_3"
+                                                name="service_items[]" multiple="multiple">
+                                            @foreach($rooms as $room)
+                                                <optgroup label="{{$room['name']}}"></optgroup>
+                                                @foreach($room['services'] as $service_item)
+                                                    <option
+                                                        value="{{$service_item['id']}}">{{$service_item['name']}}</option>
+                                                @endforeach
+                                            @endforeach
+                                        </select>
                                     </div>
-
-
                                 </div>
-                                <div class="separator separator-solid separator-border-2 mb-5"></div>
                                 <input type="hidden" name="id" value="{{$diagnosis['id']}}"/>
-                                <div class="form-group">
-                                    <label>Room</label>
-                                    <select class="form-control form-control-solid" name="room_id">
-                                        <option value="-1">None</option>
-                                        @foreach($rooms as $room)
-                                            <option value="{{$room['id']}}" {{old('room_id') ? (old('room_id') == $room['id'] ? "selected" : "") : "" }}>{{$room['name']}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+
                             </div>
                             <div class="card-footer">
                                 <div class="row">
@@ -314,38 +368,90 @@
                                             <div class="card-title">
                                                 <h3 class="card-label">
                                                     Services
+                                                    <small>({{count($diagnosis['services'])}})</small>
                                                 </h3>
                                             </div>
                                         </div>
-                                        <div class="card-body">
-                                            <div class="card-body pt-1">
-                                                @if(count($prev_diag['services']) == 0)
-                                                    --
-                                                @endif
-                                                @foreach($prev_diag['services'] as $diag_service)
-                                                    <div class="d-flex align-items-center mb-2">
-                                                        <div class="d-flex flex-column font-weight-bold">
-                                                            <div class="text-dark text-hover-primary mb-1 font-size-lg">Description</div>
-                                                            <span class="text-muted">{{$diag_service['description']}}</span>
-                                                            <div class="text-dark text-hover-primary mb-1 font-size-lg">Response</div>
-                                                            <span class="text-muted">{{$diag_service['response']}}</span>
-                                                        </div>
-                                                        <div class="d-flex flex-column font-weight-bold">
-                                                            <div class="text-dark text-hover-primary mb-1 font-size-lg">{{$diag_service['description']}}</div>
-                                                        </div>
-                                                        @foreach($diag_service['service_request_items'] as $service_items)
-                                                            <div class="d-flex align-items-center mb-2">
-                                                                <div class="d-flex flex-column font-weight-bold">
-                                                                    <div class="text-dark text-hover-primary mb-1 font-size-lg">{{$service_items['name']}}</div>
-                                                                    <span class="text-muted">{{$service_items['description']}}</span>
-                                                                    <span class="text-muted">Status: {{$service_items['status'] ? "True" : "False"}}</span>
-                                                                    <span class="text-muted">File: {{$service_items['fileable'] ? "True" : "False"}}</span>
+                                        <div class="card-body overflow-auto example2-viewport">
+                                            @if(count($diagnosis['services']) > 0)
+                                                <div class="d-flex flex-row-fluid mb-2 example2-content  ">
+                                                    @foreach($diagnosis['services'] as $diag_service)
+                                                        <div class="card card-custom col-sm-4 col-md-6 mx-2 ">
+                                                            <div class="card-header">
+                                                                <div class="card-title">
+                                                                    <h3 class="card-label">
+                                                                        {{$diag_service['room']['name']}}
+                                                                        <small>{{$diag_service['created_at']->format('M d, Y  H:i')}}
+                                                                            ({{$diag_service['complete'] ? "Complete" : "Pending"}})</small>
+                                                                    </h3>
                                                                 </div>
                                                             </div>
-                                                        @endforeach
-                                                    </div>
-                                                @endforeach
-                                            </div>
+                                                            <div class="card-body">
+                                                                <div>
+                                                                    <div>
+                                                                        <div
+                                                                            class="d-flex flex-column font-weight-bold">
+                                                                            <div
+                                                                                class="text-dark text-hover-primary mb-1 font-size-lg">
+                                                                                Description
+                                                                            </div>
+                                                                            <span
+                                                                                class="text-muted">{{$diag_service['description'] ? $diag_service['description'] : "--"}}</span>
+                                                                        </div>
+                                                                        <div
+                                                                            class="d-flex flex-column font-weight-bold">
+                                                                            <div
+                                                                                class="text-dark text-hover-primary mb-1 font-size-lg">
+                                                                                Response
+                                                                            </div>
+                                                                            <span
+                                                                                class="text-muted">{{$diag_service['response'] ? $diag_service['response'] : "--"}}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div
+                                                                        class="d-flex flex-column font-weight-bold mt-5">
+                                                                        <div
+                                                                            class="text-dark text-hover-primary mb-3 font-size-lg">
+                                                                            Service Items
+                                                                            <small>({{count($diag_service['service_request_items'])}})</small>
+                                                                        </div>
+                                                                        <div class="row mb-5 h-250px overflow-auto">
+                                                                            @foreach($diag_service['service_request_items'] as $service_item)
+                                                                                <div class="col-lg-12 mt-5">
+                                                                                    <div
+                                                                                        class="card card-custom card-stretch">
+                                                                                        <div class="card-header">
+                                                                                            <div class="card-title">
+                                                                                                <h3 class="card-label"> {{$service_item['service']['name']}}
+                                                                                                    <small> {{$service_item['service']['description']}}</small>
+                                                                                                </h3>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="card-body">
+                                                                                            <div
+                                                                                                class="d-flex flex-column">
+                                                                                                <span
+                                                                                                    class="text-muted">Description: {{$service_item['complete'] ? $service_item['description'] : "--"}}</span>
+                                                                                                <span
+                                                                                                    class="text-muted">Status: {{$service_item['complete'] ? ($service_item['status'] ? "True" : "False") : "--"}}</span>
+                                                                                                <span
+                                                                                                    class="text-muted">File: {{$service_item['complete'] ? ($service_item['status'] ? "True" : "False") : "--"}}</span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            @endforeach
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                            @endif
+                                            @if(count($diagnosis['services']) == 0)
+                                                --
+                                            @endif
                                         </div>
                                     </div>
 
@@ -382,7 +488,8 @@
                                                         <div class="d-flex flex-column font-weight-bold">
                                                             <div
                                                                 class="text-dark text-hover-primary mb-1 font-size-lg">{{$diag_disease['disease']['name']}}</div>
-                                                            <span class="text-muted">{{$diag_disease['disease']['description']}}</span>
+                                                            <span
+                                                                class="text-muted">{{$diag_disease['disease']['description']}}</span>
                                                         </div>
                                                     </div>
                                                 @endforeach
@@ -405,7 +512,15 @@
 
 {{-- Styles Section --}}
 @section('styles')
+    <style>
+        .select2-search {
+            width: 200px !important;
+        }
 
+        .example2-viewport {
+            cursor: pointer;
+        }
+    </style>
 @endsection
 
 {{-- Scripts Section --}}
@@ -525,39 +640,38 @@
         });
 
         // Class definition
-        var KTFormRepeater = function() {
-
+        var KTSelect2 = function () {
             // Private functions
-            var demo1 = function() {
-                $('#kt_repeater_1').repeater({
-                    initEmpty: false,
-
-                    defaultValues: {
-                        'text-input': 'foo'
-                    },
-
-                    show: function () {
-                        $(this).slideDown();
-                    },
-
-                    hide: function (deleteElement) {
-                        $(this).slideUp(deleteElement);
-                    }
+            var demos = function () {
+                // multi select
+                $('#kt_select2_3').select2({
+                    placeholder: "Select a Service",
                 });
             }
 
+
+            // Public functions
             return {
-                // public functions
-                init: function() {
-                    demo1();
+                init: function () {
+                    demos();
                 }
             };
         }();
 
-        jQuery(document).ready(function() {
-            KTFormRepeater.init();
+        // Initialization
+        jQuery(document).ready(function () {
+            KTSelect2.init();
         });
 
+    </script>
+    <script src="{{asset('js/scroll/scrollbooster.js')}}"></script>
+    <script>
+        new ScrollBooster({
+            viewport: document.querySelector('.example2-viewport'),
+            content: document.querySelector('.example2-content'),
+            scrollMode: 'native',
+            direction: 'horizontal'
+        });
     </script>
 @endsection
 

@@ -16,9 +16,9 @@ class CreateDiagnosisDiseasesTable extends Migration
         Schema::create('diagnosis_diseases', function (Blueprint $table) {
             $table->id();
             $table->index('diagnosis_id');
-            $table->foreignId('diagnosis_id')->nullable()->constrained()->cascadeOnUpdate()->nullOnDelete()->references('id')->on('diagnoses');
+            $table->foreignId('diagnosis_id')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete()->references('id')->on('diagnoses');
             $table->index('disease_id');
-            $table->foreignId('disease_id')->nullable()->constrained()->cascadeOnUpdate()->nullOnDelete()->references('id')->on('diseases');
+            $table->foreignId('disease_id')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete()->references('id')->on('diseases');
             $table->timestamps();
         });
     }

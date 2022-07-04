@@ -55,6 +55,7 @@
                     <th>Student ID</th>
                     <th>Sex</th>
                     <th>Date</th>
+                    <th>Status</th>
                     <th>Action</th>
                 </tr>
                 </thead>
@@ -70,6 +71,7 @@
                         <td>{{ $diagnosis['student']['student_id'] }}</td>
                         <td>{{ $diagnosis['student']['sex'] }}</td>
                         <td>{{ $diagnosis['created_at']->format('M d, Y  H:i') }}</td>
+                        <td>{{ $diagnosis['accepted'] ? 1 : 2 }}</td>
                         <td>{{ $diagnosis['id']}}</td>
                     </tr>
                 @endforeach
@@ -135,16 +137,45 @@
                             width: 150
                         },
                         {
+                            field: "Status",
+                            title: "Status",
+                            autoHide: false,
+                            // callback function support for column rendering
+                            template: function template(row) {
+                                let status = {
+                                    1: {
+                                        title: "Accepted",
+                                        class: " label-light-success",
+                                    },
+                                    2: {
+                                        title: "New",
+                                        class: " label-light-primary",
+                                    }
+                                };
+                                return (
+                                    '<span class="label font-weight-bold label-lg' +
+                                    status[row.Status]["class"] +
+                                    ' label-inline">' +
+                                    status[row.Status].title +
+                                    "</span>"
+                                );
+                            },
+                        },
+                        {
                             field: "Action",
                             title: "Action",
                             autoHide: false,
                             // callback function support for column rendering
                             template: function template(row) {
-                                return (
-                                    `<a href="/clinic/diagnosis/accept/${row['Action']}" class="btn btn-primary btn-clean  mr-2" title="Select Student">
+
+                                let accept =  `<a href="/clinic/diagnosis/accept/${row['Action']}" class="btn btn-primary btn-clean  mr-2" title="Select Student">
 	                                     Accept
                                     </a>`
-                                );
+                                let view =  `<a href="/clinic/diagnosis/diagnose/${row['Action']}" class="btn btn-primary btn-clean  mr-2" title="Select Student">
+	                                    View
+                                    </a>`
+                                console.log(row['status'])
+                                return parseInt(row['Status']) === 2 ? accept : view;
                             },
                         },
                     ],

@@ -22,4 +22,9 @@ class Room extends Model
     {
         return $this->belongsTo('App\Model\User');
     }
+
+    public function services()
+    {
+        return $this->hasMany('App\Model\Clinic\Service');
+    }
 }

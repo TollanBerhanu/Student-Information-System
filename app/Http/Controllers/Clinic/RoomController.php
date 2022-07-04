@@ -131,7 +131,7 @@ class RoomController extends Controller
 
         if($data['clinic_id'] == -1){
             return back()->withErrors([
-                'clinic_id' => 'RoomType cannot be None.',
+                'clinic_id' => 'Clinic cannot be None.',
             ])->withInput($data);
         }
         else if($room['clinic_id'] != $data['clinic_id']){

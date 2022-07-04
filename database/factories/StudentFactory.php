@@ -16,11 +16,11 @@ $factory->define(Student::class, function (Faker $faker) {
         'profile' => "media/team/awol.jpg",
         'dob' => $faker->date,
         'sex' => $faker->randomElement(['Male', 'Female']),
-        'status' => $faker->boolean,
+        'status' => true,
         'join_year' => $faker->date,
         'passed_semester' => $faker->numberBetween(1,10),
         'taken_semester' => $faker->numberBetween(1,10),
-        'student_id' => $faker->unique()->text,
+        'student_id' => "RU".$faker->numberBetween(1000,9999).'/'.$faker->numberBetween(10,15),
         'program_id' => App\Model\Syncable\Program::all()->random()->id,
     ];
 });

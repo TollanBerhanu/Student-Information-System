@@ -20,7 +20,7 @@ class CreateServiceRequestsTable extends Migration
             $table->boolean('accepted')->default(false);
             $table->boolean('complete')->default(false);
             $table->index('diagnosis_id');
-            $table->foreignId('diagnosis_id')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete()->references('id')->on('students');
+            $table->foreignId('diagnosis_id')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete()->references('id')->on('diagnoses');
             $table->index('room_id');
             $table->foreignId('room_id')->nullable()->constrained()->cascadeOnUpdate()->nullOnDelete()->references('id')->on('rooms');
 

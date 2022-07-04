@@ -1,5 +1,20 @@
 # Metronic 7 + Laravel 7
 
+## Code Samples
+
+### - Student list by college
+$students = Student::whereHas('program', function ($query) {
+return $query->whereHas('department', function ($query) {
+return $query->whereHas('faculty', function ($query) {
+return $query->whereHas('college', function ($query) {
+return $query->where('id', '=', $college_id);
+});
+});
+});
+})->get();
+
+
+
 ### Introduction
 
 ...

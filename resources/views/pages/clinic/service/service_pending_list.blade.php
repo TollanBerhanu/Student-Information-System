@@ -134,8 +134,8 @@
                             // callback function support for column rendering
                             template: function template(row) {
                                 return (
-                                    `<a href="/clinic/service/accept/${row['Action']}" class="btn btn-primary btn-clean  mr-2" title="Select Student">
-	                                     Accept
+                                    `<a href="/clinic/service/serve/${row['Action']}" class="btn btn-primary btn-clean  mr-2" title="Select Student">
+	                                     View
                                     </a>`
                                 );
                             },

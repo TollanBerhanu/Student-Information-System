@@ -5,19 +5,19 @@ return [
     'items' => [
         // Custom
         [
-            'section' => 'Diagnosis',
+            'section' => 'Service',
         ],
         [
-            'title' => 'New Request',
+            'title' => 'New request',
             'root' => true,
             'icon' => 'media/svg/icons/Design/Layers.svg', // or can be 'flaticon-home' or any flaticon-*
-            'page' => '/clinic/diagnosis/list/new',
+            'page' => '/clinic/service/list/new',
             'new-tab' => false,
         ],[
-            'title' => 'Pending Request',
+            'title' => 'Pending request',
             'root' => true,
             'icon' => 'media/svg/icons/Design/Layers.svg', // or can be 'flaticon-home' or any flaticon-*
-            'page' => '/clinic/diagnosis/list/pending',
+            'page' => '/clinic/service/list/pending',
             'new-tab' => false,
         ],
     ]

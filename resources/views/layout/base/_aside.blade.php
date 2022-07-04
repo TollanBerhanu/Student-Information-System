@@ -57,11 +57,6 @@
                     {{ Menu::renderVerMenu(config('asideMenu.'.$system_role.'.items')) }}
                 </ul>
             @endif
-            @if (config('asideMenu.'.$user_role.'.items'))
-            <ul class="menu-nav {{ Metronic::printClasses('aside_menu_nav', false) }}">
-                 {{Menu::renderVerMenu(config('asideMenu.'.$user_role.'.items'))}}
-            </ul>
-            @endif
 
             @if (config('asideMenu.'.$user_role.'.items'))
                 <ul class="menu-nav {{ Metronic::printClasses('aside_menu_nav', false) }}">

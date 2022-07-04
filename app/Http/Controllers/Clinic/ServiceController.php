@@ -9,6 +9,7 @@ use App\Model\Clinic\DiagnosisSymptom;
 use App\Model\Clinic\Disease;
 use App\Model\Clinic\Room;
 use App\Model\Clinic\ServiceRequest;
+use App\Model\Clinic\ServiceRequestItem;
 use App\Model\Clinic\Symptom;
 use App\Model\Syncable\Student;
 use Illuminate\Http\Request;
@@ -18,7 +19,7 @@ class ServiceController extends Controller
 {
     public function newList(Request $request)
     {
-        $service_request = ServiceRequest::whereHas('room', function ($query) {
+        $service_requests = ServiceRequest::whereHas('room', function ($query) {
             return $query->where('user_id', '=', Auth::user()['id']);
         })->where('accepted', false)->get();
         $page_title = 'Clinic Service Request List ';
@@ -26,7 +27,20 @@ class ServiceController extends Controller
         $user = Auth::user();
 
         return view('pages.clinic.service.service_new_list',
-            compact('page_title', 'page_description', 'user', 'service_request'));
+            compact('page_title', 'page_description', 'user', 'service_requests'));
+    }
+
+    public function pendingList(Request $request)
+    {
+        $service_requests = ServiceRequest::whereHas('room', function ($query) {
+            return $query->where('user_id', '=', Auth::user()['id']);
+        })->where('accepted', true)->where('complete', false)->get();
+        $page_title = 'Clinic Service Request List ';
+        $page_description = 'Diagnosis Service request list';
+        $user = Auth::user();
+
+        return view('pages.clinic.service.service_pending_list',
+            compact('page_title', 'page_description', 'user', 'service_requests'));
     }
 
     public function acceptPage(Request $request, $id): \Illuminate\Http\RedirectResponse
@@ -56,66 +70,59 @@ class ServiceController extends Controller
                 'alert_type' => "warning",
                 'message' => 'Invalid Action!']);
         }
-        $service_request = Diagnosis::find($id);
+        $service_request = ServiceRequest::find($id);
         if ($service_request == null) {
             return redirect()->route('service_NewList')->with(['notification' => "Error",
                 'alert_type' => "warning",
-                'message' => 'Invalid Diagnosis ID!']);
+                'message' => 'Invalid Service Request ID!']);
         }
-        $page_title = 'Diagnosis Service';
-        $page_description = 'Diagnosis service for patient';
+        $page_title = 'Service';
+        $page_description = 'service for patient';
         $user = Auth::user();
 
+        $data_array = array();
+        foreach($service_request['service_request_items'] as $item){
+            $data_array[$item['id']] = [];
+            $data_array[$item['id']]['id'] = $item['id'];
+            $data_array[$item['id']]['description'] = "";
+            $data_array[$item['id']]['status'] = false;
+        }
+        $data_array = \GuzzleHttp\json_encode($data_array);
+
         return view('pages.clinic.service.service_serve',
-            compact('page_title', 'page_description', 'user', 'service_request'));
+            compact('page_title', 'page_description', 'user', 'service_request', 'data_array'));
     }
 
     public function completeHandle(Request $request): \Illuminate\Http\RedirectResponse
     {
         $data = $request->validate([
             'id' => ['required'],
-            'disease_list' => ['required'],
-            'symptom_list' => ['required'],
-            'description' => ['required'],
-            'diagnosis' => ['required'],
+            'response' => ['required'],
+            'service_item_data' => ['required'],
         ]);
 
-        $diagnosis = Diagnosis::find($data['id']);
-        if ($diagnosis == null) {
-            return redirect()->route('reception_StudentList')->with(['notification' => "Error",
+        $service_request = ServiceRequest::find($data['id']);
+        if ($service_request == null) {
+            return redirect()->route('service_NewList')->with(['notification' => "Error",
                 'alert_type' => "warning",
-                'message' => 'Invalid Diagnosis ID!']);
+                'message' => 'Invalid Service Request ID!']);
         }
 
-        $diagnosis['description'] = $data['description'];
-        $diagnosis['diagnosis'] = $data['diagnosis'];
-        $disease_list = collect(\GuzzleHttp\json_decode($data['disease_list']));
-        $symptom_list = collect(\GuzzleHttp\json_decode($data['symptom_list']));
+        $service_request['response'] = $data['response'];
 
-        $_data_ = collect();
+        $service_item_data = collect(\GuzzleHttp\json_decode($data['service_item_data'], true));
 
-        DiagnosisDisease::where([['diagnosis_id', '=', $diagnosis['id']]])->delete();
-        foreach($disease_list as $item){
-            $disease = Disease::find($item);
-            if(!$disease) continue;
-            $data_ = array('diagnosis_id' => $diagnosis['id'], 'disease_id' => $item);
-            $_data_->push($data_);
+        foreach($service_item_data as $item){
+            $service_request_item = ServiceRequestItem::find($item['id']);
+            if ($service_request_item != null) {
+                $service_request_item['description'] = $item['description'];
+                $service_request_item['status'] = $item['status'];
+                $service_request_item['complete'] = true;
+                $service_request_item->save();
+            }
         }
-        DiagnosisDisease::insert($_data_->toArray());
-
-
-        DiagnosisSymptom::where([['diagnosis_id', '=', $diagnosis['id']]])->delete();
-        $_data_ = collect();
-        foreach($symptom_list as $item){
-            $symptom = Symptom::find($item);
-            if(!$symptom) continue;
-            $data_ = array('diagnosis_id' => $diagnosis['id'], 'symptom_id' => $item);
-            $_data_->push($data_);
-        }
-        DiagnosisSymptom::insert($_data_->toArray());
-
-        $diagnosis['complete'] = true;
-        $diagnosis->save();
-        return redirect()->route('diagnosis_NewList')->with(['notification' => "Success", 'alert_type' => "success", 'message' => 'Patient information submitted successfully!']);
+        $service_request['complete'] = true;
+        $service_request->save();
+        return redirect()->route('service_NewList')->with(['notification' => "Success", 'alert_type' => "success", 'message' => 'Patient information submitted successfully!']);
     }
 }

@@ -43,6 +43,25 @@ return [
                 ]
             ]
         ],
+        // Service
+        [
+            'title' => 'Service',
+            'desc' => '',
+            'icon' => 'media/svg/icons/Design/Bucket.svg',
+            'bullet' => 'dot',
+            'root' => true,
+            'submenu' => [
+                [
+                    'title' => 'List',
+                    'page' => '/clinic/room/service'
+                ],
+                [
+                    'title' => 'Register',
+                    'page' => '/clinic/room/service/register'
+                ]
+            ]
+        ],
+        // Disease
         [
             'title' => 'Disease',
             'desc' => '',
@@ -60,7 +79,7 @@ return [
                 ]
             ]
         ],
-        // Privilege
+        // Symptom
         [
             'title' => 'Symptom',
             'desc' => '',

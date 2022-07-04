@@ -7,7 +7,7 @@
     <div class="card card-custom">
         <div class="card-header">
             <h3 class="card-title">
-                {{$room['name']}}
+                Service
             </h3>
         </div>
         <!--begin::Form-->
@@ -32,18 +32,17 @@
                     </h3>
                 </div>
                 <input type="hidden" name="id" value="{{$service_request['id']}}"/>
-                <input type="hidden" name="service_item_count"
-                       value="{{count($service_request['service_request_items'])}}"/>
                 <input type="hidden" name="service_item_data"
-                       value="{{ old('service_item_data') ? old('service_item_data') : '{}'}}"
-                       id="service_item_data_array"/>
+                       value="{{ old('service_item_data') ? old('service_item_data') : $data_array}}"
+                       id="service_item_data"/>
                 <div class="form-group row">
                     <label>Response</label>
                     <textarea class="form-control form-control-solid" rows="3"
-                              name="description">{{old('response')}}</textarea>
+                              name="response">{{old('response')}}</textarea>
                 </div>
-                @if(count($service_request['service_request_items']) == 0)
-                    <div class="card card-custom gutter-b">
+                @if(count($service_request['service_request_items']) > 0)
+                <div class="form-group">
+                    <div class="card card-custom">
                         <div class="card-header">
                             <div class="card-title">
                                 <h3 class="card-label">
@@ -53,22 +52,24 @@
                         </div>
                         <div class="card-body">
                             @foreach($service_request['service_request_items'] as $item)
-                                <div class="form-group row">
-                                    <label>{{$item['name']}}</label>
-                                    <div class="form-group row">
+                                <div class="form-group">
+                                    <label class="h4 border-bottom border-bottom-dark mb-5">{{$item['service']['name']}}</label>
+                                    <div class="form-group">
                                         <label>Description</label>
-                                        <textarea onkeyup="data_input({{$item['id']}})" class="form-control form-control-solid" rows="3"
+                                        <textarea onkeyup="data_input_desc(this, {{$item['id']}})"
+                                                  class="form-control form-control-solid" rows="3"
                                                   id="{{'s_r_description_'.$item['id']}}"></textarea>
                                     </div>
-                                    <div class="form-group row">
-                                        <label class="col-3 col-form-label">Status</label>
+                                    <div class="form-group">
+                                        <label class="col-6 col-form-label">Status</label>
                                         <div class="col-3">
-                                       <span class="switch switch-sm">
-                                        <label>
-                                         <input type="checkbox" onchange="data_input({{$item['id']}})" id="{{'s_r_status_'.$item['id']}}" name="status"/>
-                                         <span></span>
-                                        </label>
-                                       </span>
+                                           <span class="switch switch-sm">
+                                            <label>
+                                             <input type="checkbox" onchange="data_input_stat(this ,{{$item['id']}})"
+                                                    id="{{'s_r_status_'.$item['id']}}" name="status"/>
+                                             <span></span>
+                                            </label>
+                                           </span>
                                         </div>
                                     </div>
                                 </div>
@@ -76,6 +77,7 @@
                             @endforeach
                         </div>
                     </div>
+                </div>
                 @endif
             </div>
             <div class="card-footer">
@@ -141,75 +143,31 @@
         }
         @endif
 
-        function data_input(cb) {
-            let data = document.getElementById('service_item_data_array').value;
+        function data_input_desc(desc, id) {
+            let data = document.getElementById('service_item_data').value;
             data = JSON.parse(data);
-            if (cb.checked) {
-                if (data.indexOf(cb.value) === -1) {
-                    data.push(cb.value);
-                }
-            } else {
-                let temp = [];
-                for (let item of data) {
-                    if (item !== cb.value) {
-                        temp.push(item);
-                    }
-                }
-                data = temp;
-            }
-            // console.log(data);
-            document.getElementById('service_item_data_array').value = JSON.stringify(data);
+            data[id]['description'] = desc.value;
+            document.getElementById('service_item_data').value = JSON.stringify(data);
+        }
+
+        function data_input_stat(cb, id) {
+            let data = document.getElementById('service_item_data').value;
+            data = JSON.parse(data);
+            data[id]['status'] = cb.checked;
+            document.getElementById('service_item_data').value = JSON.stringify(data);
         }
 
         window.addEventListener('load', function () {
-            let data = document.getElementById('service_item_data_array').value;
+            let data = document.getElementById('service_item_data').value;
             data = JSON.parse(data);
-            let temp = [];
-            for (let item of data) {
-                temp.push(item + '');
+            for (let item in data) {
                 try {
-                    // console.log(item);
-                    document.getElementById('symptom_' + item + '_id').checked = true;
-                    // console.log(item + " Done");
-                } catch (ignored) {
-                }
+                    document.getElementById('s_r_status_' + item).checked = data[item]['status'];
+                    document.getElementById('s_r_description_' + item).value = data[item]['description'];
+                } catch (ignored) {}
             }
-            document.getElementById('service_item_data_array').value = JSON.stringify(temp);
         });
 
-        // Class definition
-        var KTFormRepeater = function () {
-
-            // Private functions
-            var demo1 = function () {
-                $('#kt_repeater_1').repeater({
-                    initEmpty: false,
-
-                    defaultValues: {
-                        'text-input': 'foo'
-                    },
-
-                    show: function () {
-                        $(this).slideDown();
-                    },
-
-                    hide: function (deleteElement) {
-                        $(this).slideUp(deleteElement);
-                    }
-                });
-            }
-
-            return {
-                // public functions
-                init: function () {
-                    demo1();
-                }
-            };
-        }();
-
-        jQuery(document).ready(function () {
-            KTFormRepeater.init();
-        });
 
     </script>
 @endsection
