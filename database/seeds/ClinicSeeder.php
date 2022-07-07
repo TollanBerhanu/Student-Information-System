@@ -14,5 +14,6 @@ class ClinicSeeder extends Seeder
     {
         factory(App\Model\Clinic\Disease::class, 10)->create();
         factory(App\Model\Clinic\Symptom::class, 25)->create();
+
     }
 }

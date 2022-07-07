@@ -78,7 +78,7 @@ public function employeeList()
             }
             else {
                 return view('pages\gate\Invalid_Id', compact('user'));
-                exit();
+                
             }
             $gate_college=DB::table('users')->select('college_id')->where('college_id',$user->college->id)->first();
             $student_program = DB::table('students')->select('program_id')->where('student_id',$search_text)->first();
@@ -95,14 +95,16 @@ public function employeeList()
            $permited_college = $found==$user_college;
 
            $block_gate = Block_Gate::where('student_id',$stud->id)->get();
+         
            $ab = Student::where('student_id',$search_text)->exists();
-
+         
             if($block==null && $permited_college){
             return view ('Pages\gate\permitedStudent', compact('searchStud','user'));
-           }
+                 }
            else if(!$permited_college && $ab)
            {
-            return view ('pages\gate\blockgate', compact('block_gate','user','permited_college'));
+      
+            return view ('pages\gate\blockgate', compact('searchStud','user','permited_college','block_gate'));
            }
           
              else if (!$ab || $block){

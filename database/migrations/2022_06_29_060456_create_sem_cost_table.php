@@ -18,6 +18,9 @@ class CreateSemCostTable extends Migration
             $table->index('dept_id');
             $table->foreignId('dept_id')->nullable()->constrained()->cascadeOnDelete()->cascadeOnUpdate()->references('id')->on('departments');
             $table->decimal('costper_sem');
+            $table->index('program_id');
+            $table->foreignId('program_id')->nullable()->constrained()->cascadeOnDelete()->cascadeOnUpdate()->references('id')->on('programs');
+            $table->date('batch');
             $table->timestamps();
         });
     }

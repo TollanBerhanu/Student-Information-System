@@ -16,7 +16,7 @@ class CreateGateEmpRecordTable extends Migration
         Schema::create('gate_emp_record', function (Blueprint $table) {
             $table->id();
             $table->string('shift');
-            $table->date('date');
+            $table->date('date')->nullable();
             $table->index('gate_id');
             $table->foreignId('gate_id')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete()->references('id')->on('gate');
             $table->index('user_id');

@@ -17,6 +17,7 @@ class CreateBlockGateTable extends Migration
             $table->id();
             $table->text('alert');
             $table->index('student_id');
+            $table->boolean('status')->nullable();
             $table->foreignId('student_id')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete()->references('id')->on('students');
             $table->timestamps();
         });

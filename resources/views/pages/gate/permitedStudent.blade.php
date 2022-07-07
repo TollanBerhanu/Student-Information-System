@@ -43,10 +43,8 @@
                <tr>
              
              <td><img src="{{asset ('uploads/profile/righticon1.jpg')}}" width="400px" height="520px" alt=""></td>
-             <td>
-             <a class="btn btn-info" href="">
-               <img src="{{asset ('uploads/profile/'.$a->profile )}}" width="520px" height="520px" alt=""></a> 
-              
+             <td><a href="{{route('studentList.show',$a->id)}}">
+               <img  src="/{{$a['profile']}}"  width="520px" height="500px" alt=""></a> 
              </td>
              <td><img src="{{asset ('uploads/profile/righticon1.jpg')}}" width="400px" height="520px" alt=""></td>
                 <td>
@@ -71,4 +69,52 @@
 {{-- Scripts Section --}}
 @section('scripts')
     <script src="{{ asset('js/pages/widgets.js') }}" type="text/javascript"></script>
+@endsection
+
+
+{{-- Scripts Section --}}
+@section('scripts')
+    <script>
+        var avatar3 = new KTImageInput('kt_image_3');
+
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+        @if(Session::has('notification'))//this line works as expected
+
+        var type = "{{ Session::get('alert_type', 'info') }}";
+        //but the type var gets assigned with default value(info)
+        switch (type) {
+            case 'info':
+                toastr.info("{{ Session::get('message') }}", "{{ Session::get('notification') }}");
+                break;
+
+            case 'warning':
+                toastr.warning("{{ Session::get('message') }}", "{{ Session::get('notification') }}");
+                break;
+
+            case 'success':
+                toastr.success("{{ Session::get('message') }}", "{{ Session::get('notification') }}");
+                break;
+
+            case 'error':
+                toastr.error("{{ Session::get('message') }}", "{{ Session::get('notification') }}");
+                break;
+        }
+        @endif
+    </script>
 @endsection

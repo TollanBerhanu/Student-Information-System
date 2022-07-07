@@ -17,7 +17,7 @@ class PcHistoryTable extends Migration
             $table->id();
             $table->index('student_id');
             $table->foreignId('student_id')->nullable()->constrained()->cascadeOnDelete()->cascadeOnUpdate()->references('id')->on("students");
-           $table->date('date');
+           $table->date('date')->nullable();
             $table->timestamps();
         });
     }

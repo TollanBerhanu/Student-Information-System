@@ -16,7 +16,7 @@ return [
             'submenu' => [
                 [
                     'title' => 'List',
-                    'page' => '/gate/student/'
+                    'page' => '/gate/admin/blocked_StudentList'
                 ]
             ]
         ],

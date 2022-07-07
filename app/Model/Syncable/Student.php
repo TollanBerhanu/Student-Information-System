@@ -27,7 +27,8 @@ class Student extends Model
     }
     public function gate()
     {
-        return $this->belongsTo(Block_Gate::class,'student_id');
+        return $this->belongsTo('App\Model\Gate\Block_Gate');
     
     }
+  
 }

@@ -43,17 +43,13 @@
                @foreach($block_gate as $a)
               
                <tr>
-                @if(!$permited_college)
-             <h1 style="color:red;margin-left: 20%!important">Alert : This is not your College</h1>
-                @else
-             <h1 style="color:red;margin-left: 20%!important">Alert : {{$a->alert}}</h1>
-            @endif
+          
+             <h1 style="color:red;margin-left: 20%!important"><i class="icon-warning-sign"> </i>Alert : {{$a->alert}}</h1>
+            
              <td><img src="{{asset ('uploads/profile/wrongicon.jpg')}}"  width="400px" height="520px" alt=""></td>
-             <td>
-             <a class="btn btn-info" href="">
-               <img src="{{asset ('uploads/profile/')}}" width="600px" height="520px" alt=""></a> 
-              
-             </td>
+            <td> <a href="{{route('studentList.show',$a->id)}}">
+               <img  src="/{{$a['profile']}}"  width="520px" height="500px" alt=""></a> 
+               </td>
              <td><img src="{{asset ('uploads/profile/wrongicon.jpg')}}" width="400px" height="520px" alt=""></td>
                 <td>
                 <form action="" method="POST">   

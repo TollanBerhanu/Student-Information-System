@@ -17,6 +17,7 @@ class StudCostSharing extends Migration
             $table->id();
             $table->index('student_id');
             $table->foreignId('student_id')->nullable()->constrained()->cascadeOnDelete()->cascadeOnUpdate()->references('id')->on('students');
+            $table->decimal('costper_year')->nullable();
             $table->decimal('totalCost');
             $table->timestamps();
         });
