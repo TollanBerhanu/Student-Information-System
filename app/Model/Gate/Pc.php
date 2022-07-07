@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Model\Gate;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,7 +12,7 @@ protected $fillable = [
     't_mark',
     'serialNo',
     'color'
-   
+
 ];
 
 public function student()

@@ -32,7 +32,7 @@ return [
                 'title' => 'Control Student Gate',
                 'page' => '/gate/student/student_pass',
             ]
-            
+
         ]
     ],
     // Privilege
@@ -63,6 +63,25 @@ return [
             ]
         ]
     ],
+
+        // PC
+        [
+            'title' => 'Students Pc',
+            'desc' => '',
+            'icon' => 'media/svg/icons/Design/Bucket.svg',
+            'bullet' => 'dot',
+            'root' => true,
+            'submenu' => [
+                [
+                    'title' => 'Register Pc',
+                    'page' => '/gate/admin/studentList'
+                ],
+                [
+                    'title' => 'PC history',
+                    'page' => '/gate/admin/blocked_StudentList'
+                ]
+            ]
+        ],
     ]
 
 ];

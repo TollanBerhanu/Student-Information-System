@@ -47,7 +47,7 @@ public function employeeList()
         $page_description = 'Some description for the page';
         $user = Auth::user();
         $gate = Gate::all();
-      
+
         return view('pages.gate.blocked_stud_list',compact('gate','user'));
     }
 
@@ -64,29 +64,29 @@ public function employeeList()
         $students = Student::with('gate')->get();
         $student =Student::all();
         $program = Program::with('student')->get();
-      
+
         $user = Auth::user();
-      
+
         if(asset($_GET['query'])){
-        
+
             $search_text= $request->input('query');
             $stud=DB::table('students')->select('id')->where('student_id',$search_text)->first();
-            
+
             $searchStud = Student::where('student_id','LIKE','%'.$search_text.'%')->get();
             if($stud!=null){
            $block = Block_Gate::where('student_id',$stud->id)->exists();
             }
             else {
                 return view('pages\gate\Invalid_Id', compact('user'));
-                
+
             }
             $gate_college=DB::table('users')->select('college_id')->where('college_id',$user->college->id)->first();
             $student_program = DB::table('students')->select('program_id')->where('student_id',$search_text)->first();
-           
+
             $student_department =DB::table('programs')->select('department_id')->where('id',$student_program->program_id)->first();
-           
+
             $student_faculty = DB::table('departments')->select('faculty_id')->where('id',$student_department->department_id)->first();
-         
+
             $student_college =DB::table('faculties')->select('college_id')->where('id',$student_faculty->faculty_id)->first();
 
            //$target_id = DB::table('colleges')->select('id')->where('faculty_id',$student_college->college_id)->first();
@@ -95,28 +95,28 @@ public function employeeList()
            $permited_college = $found==$user_college;
 
            $block_gate = Block_Gate::where('student_id',$stud->id)->get();
-         
+
            $ab = Student::where('student_id',$search_text)->exists();
-         
+
             if($block==null && $permited_college){
             return view ('Pages\gate\permitedStudent', compact('searchStud','user'));
                  }
            else if(!$permited_college && $ab)
            {
-      
+     //   dd($searchStud);
             return view ('pages\gate\blockgate', compact('searchStud','user','permited_college','block_gate'));
            }
-          
+
              else if (!$ab || $block){
-               
-              
+
+
                 return view ('pages\gate\blockgate', compact('block_gate','user'));
             }
 
         }
         else{
         dd('text search');
-    } 
+    }
     }
 
 // This function is used to check attendance of users on the gate
@@ -149,7 +149,7 @@ public function gate_attendance(Request $request, $id)
 
 public function attendanceHandle(Request $request): \Illuminate\Http\RedirectResponse
 {
-    
+
     $flight = new Gate_Emp_Record;
 
     $flight->gate_id = $request->gate_id;
@@ -160,6 +160,6 @@ public function attendanceHandle(Request $request): \Illuminate\Http\RedirectRes
 
     return back()->with(['notification' => "Success", 'alert_type' => "success", 'message' => 'Employee Added successfully!']);
 
-  
+
 }
 }
