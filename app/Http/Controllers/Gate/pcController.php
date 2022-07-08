@@ -242,4 +242,43 @@ class pcController extends Controller
     }
 
 
+
+
+    public function PCindex()
+    {
+
+
+
+        $check=0;
+        $user = Auth::user();
+        return view('pages.gate.pc.pcCheck',compact('user','check'));
+        //
+    }
+
+    public function PCshow(Request $request)
+    {
+
+        $id=$request->input('stuID');
+        \Log::info($id);
+        $stud=DB::table('student')->select('id')->where('Stud_id',$id)->first();
+        \Log::info($stud->id);
+        $Pc_info = DB::table('Pc')->find($stud->id);
+        $Pc_company=$Pc_info->company_name;
+        $Pc_color=$Pc_info->color;
+        $Pc_serial=$Pc_info->serialNo;
+        $stud_info=DB::table('student')->find($stud->id);
+        $program= DB::table('program')->find($stud_info->prg_id);
+        $stu_name="".$stud_info->firstName ." ".$stud_info->middleName;
+        $stu_prog=$program->name;
+        \Log::info($stu_name.$stu_prog);
+        $check=1;
+        $user = Auth::user();
+        //return redirect()->route('pc.index',['name'=>$stu_name,'id'=>$id,'program'=>$stu_prog,'company'=>$Pc_company,'color'=>$Pc_color,'serial'=>$Pc_info]);
+        //return redirect()->route('layouts.PC.index',compact('check','stu_name','id','stu_prog','Pc_company','Pc_color','Pc_serial'));
+        return view('pages.gate.pc.PCindex',compact('user','check','stu_name','id','stu_prog','Pc_company','Pc_color','Pc_serial'));
+
+        //
+    }
+
+
 }

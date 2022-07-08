@@ -38,5 +38,10 @@ Route::group(['prefix' => 'gate'], function (){
         Route::get('/studentpclist/{id}', 'Gate\pcController@studentPcList')->middleware(['auth', 'privilege:register_pc'])->name('studentPcList');
 
     });
+
+    Route::group(['prefix'=>'/pc'],function() {
+        Route::get('/', 'Gate\pcController@PCindex')->middleware(['auth', 'privilege:checkPc'])->name('checkPc');
+    });
+
 });
 

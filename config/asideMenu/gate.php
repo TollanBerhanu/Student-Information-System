@@ -75,6 +75,9 @@ return [
                 [
                     'title' => 'Register Pc',
                     'page' => '/gate/admin/studentList'
+                ],[
+                    'title' => 'Check PC',
+                    'page' => '/gate/pc'
                 ],
                 [
                     'title' => 'PC history',
