@@ -10,16 +10,15 @@ protected $table = 'gate_emp_record';
 protected $fillable = [
     'gate_id',
     'user_id',
-    'shift',
-    'date'
+    'shift'
 ];
 
 public function user()
 {
-    return $this->belongsTo('App\Model\User');
+    return $this->belongsTo('App\Model\User','user_id');
 }
 public function gate()
 {
-    return $this->belongsTo('App\Model\User');
+    return $this->belongsTo('App\Model\Gate\Gate','gate_id');
 }
 }

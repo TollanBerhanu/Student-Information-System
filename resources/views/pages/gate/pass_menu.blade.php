@@ -4,7 +4,7 @@
 {{-- Content --}}
 @section('content')
 
-<div class="content-header">
+<div class="content-header"style ="background-color:blue!important">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
@@ -19,7 +19,7 @@
       </div><!-- /.container-fluid -->
     </div>
     <div class="card">
-              <div class="card-header">
+              <div class="card-header"style="background-color:cyan!important">
                 <!-- <h3 class="card-title">DataTable with default features</h3> -->
   
         <form class="form-inline my-2 my-lg-0"style="margin-left: 20%!important" type="get" action="{{url('/gate/student/permitedStudent')}}">

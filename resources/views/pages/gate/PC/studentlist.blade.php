@@ -141,8 +141,8 @@
                             // callback function support for column rendering
                             template: function template(row) {
                                 return (
-                                    `<a href="/gate/admin/studentpclist/${row['Action']}" class="btn btn-primary btn-clean  mr-2" title="Select Student">
-	                                     Select
+                                    `<a href="/gate/admin/studentpclist/${row['Action']}" class="btn btn-primary btn-clean  mr-2" title="Pc management">
+                                    @include('layout.modal') 
                                     </a>`
                                 );
                             },

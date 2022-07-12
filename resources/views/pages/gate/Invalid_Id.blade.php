@@ -8,7 +8,7 @@
 
 <div class="row">
 <div class="col-lg-12 margin-6">
-<div class="content-header">
+<div class="content-header"style ="background-color:blue!important">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
@@ -24,7 +24,7 @@
     </div>
 
     <div class="card">
-              <div class="card-header">
+              <div class="card-header"style="background-color:cyan!important">
                 <!-- <h3 class="card-title">DataTable with default features</h3> -->
   
         <form class="form-inline my-2 my-lg-0" method="get" action="{{url('/gate/student/permitedStudent')}}">
@@ -33,7 +33,7 @@
           <a href="{{url('/')}}" style="float:right!important"><h1>Back</h1></a>  
         </form>
              </div>
-        <h1 style="color:red; margin-left: 20%; !important">Invalid Id/ Your are not Student, Try Another Gate</h1>
+        <h1 style="color:red; margin-left: 20%; !important">Invalid Id/ Invalid Serial Number, Try Another Gate</h1>
         <div class="card-body">
             
              <table id="example1" class="table table-bordered table-striped">

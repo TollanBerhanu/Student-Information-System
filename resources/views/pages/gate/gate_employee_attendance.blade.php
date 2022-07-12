@@ -11,7 +11,7 @@
             </h3>
         </div>
         <!--begin::Form-->
-        <form method="get" action="{{ url("/gate/employeeAttendance") }}">
+        <form method="post" action="{{ url("/gate/employeeAttendance") }}">
             @csrf
             <div class="card-body">
                 <div class="form-group row">
@@ -26,7 +26,6 @@
                     @endif
                 </div>
                 <div class="form-group row">
-                    <label for="example-password-input" class="col-2 col-form-label">Profile</label>
                     <div class="image-input image-input-outline image-input-circle" id="kt_image_3">
                         <div class="image-input-wrapper"
                              style="background-image: url('/{{ old('profile') ? old('profile') : $_user['profile']}}')"></div>
@@ -49,18 +48,12 @@
                     <label class="col-2 col-form-label">First Name</label>
                     <div class="col-10">
                         <input class="form-control" type="text"
-                               value="{{ old('first_name') ? old('first_name') : $_user['first_name']}}"
-                               name="first_name"/>
+                        class="field left" readonly
+                               value="{{ old('first_name') ? old('first_name') : $_user['first_name']}} {{$_user['last_name']}}"
+                             />
                     </div>
                 </div>
-                <div class="form-group row">
-                    <label class="col-2 col-form-label">Last Name</label>
-                    <div class="col-10">
-                        <input class="form-control" type="text"
-                               value="{{ old('last_name')  ? old('last_name') : $_user['last_name'] }}"
-                               name="last_name"/>
-                    </div>
-                </div>
+            
                 <div class="form-group row">
                  <label  class="col-2 col-form-label">Select Shift</label>
                      <div class="col-10">

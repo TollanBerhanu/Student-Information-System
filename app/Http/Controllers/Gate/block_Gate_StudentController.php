@@ -15,15 +15,15 @@ class block_Gate_StudentController extends Controller
     {
         $query = $request->query('query');
         if ($query != null) {
-            $students = Block_Gate::whereHas('student', function ($query) {
-               return $query->whereHas('program', function($query){
+            $students = Student::whereHas('program', function ($query) {
+              
                 return $query->whereHas('department', function ($query) {
                     return $query->whereHas('faculty', function ($query) {
                         return $query->whereHas('college', function ($query) {
                             return $query->where('id', '=', Auth::user()['college_id']);
                         });
                     });
-                });
+           
                 });
                
             })->where('first_name', "like", "%" . $query . "%")->
@@ -32,8 +32,7 @@ class block_Gate_StudentController extends Controller
             
         } else { 
            
-            $students = Block_Gate::whereHas('student', function ($query) {
-                return $query->whereHas('program', function ($query) {
+            $students = Student::whereHas('program', function ($query) {
                 return $query->whereHas('department', function ($query) {
                     return $query->whereHas('faculty', function ($query) {
                         return $query->whereHas('college', function ($query) {
@@ -43,15 +42,15 @@ class block_Gate_StudentController extends Controller
                     
                     });
                 });
-            });
+         
           
             })->get();
            
         }
+        $students = Block_Gate::all();
         $page_title = 'Block Gate Student List ';
         $page_description = 'Student list';
         $user = Auth::user();
-      dd($students);
         return view('pages.gate.blocked_list',
             compact('page_title', 'page_description', 'user', 'students'));
     }
