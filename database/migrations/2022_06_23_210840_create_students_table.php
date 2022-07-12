@@ -25,7 +25,8 @@ class CreateStudentsTable extends Migration
             $table->string('phone_number')->unique();
             $table->string('email')->unique();
             //Should reference photo(file) table
-            $table->string('profile');
+            $table->index('profile');
+            $table->foreignId('profile')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete()->references('id')->on('photos');
             $table->integer('taken_semester');
             $table->integer('passed_semester');
             $table->boolean('status');

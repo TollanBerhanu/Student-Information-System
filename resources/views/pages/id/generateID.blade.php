@@ -79,7 +79,7 @@
                                         <label class="mr-3 mb-0 d-none d-md-block">Status:</label>
                                         <select class="form-control" id="kt_datatable_search_status">
                                             <option value="">All</option>
-                                            <option value="4">Active</option>
+                                            <option value="1">Active</option>
                                             <option value="2">Inactive</option>
                                         </select>
                                     </div>
@@ -115,9 +115,9 @@
     <table class="datatable datatable-bordered datatable-head-custom" id="kt_datatable">
         <thead>
             <tr>
-                {{-- <th title="No.">No.</th> --}}
+                <th title="#">#</th>
                 <th title="Full Name">Full Name</th>
-                <th title="ID">ID No.</th>
+                <th title="ID No">ID No</th>
                 <th title="Sex">Sex</th>
                 <th title="College">College</th>
                 <th title="Faculty">Faculty</th>
@@ -125,7 +125,7 @@
                 <th title="Program">Program</th>
                 <th title="Join Year">Join Year</th>
                 <th title="Status">Status</th>
-                <th title="select">Select</th>
+                <th title="Select">Select</th>
             </tr>
         </thead>
         <tbody>
@@ -133,7 +133,7 @@
             @csrf --}}
             @foreach ($students as $stud)
             <tr>
-                {{-- <td>{{ $loop->index }}</td> --}}
+                <td>{{ $loop->index + 1 }}</td>
                 <td>{{ $stud->first_name }} {{ $stud->middle_name }} {{ $stud->last_name }}</td>
                 <td>{{ $stud->student_id }}</td>
                 <td>{{ $stud->sex }}</td>
@@ -143,7 +143,7 @@
                 <td>{{ $stud->program->name }}</td>
                 <td>{{ $stud->join_year }}</td>
                 <td>@if ($stud->status == 1)
-                    4
+                    1
                 @else
                     2
                 @endif</td>
@@ -164,7 +164,7 @@
     <script src="{{ asset('js/pages/widgets.js') }}" type="text/javascript"></script>
     
     <!--begin::Page Scripts(used by this page)-->
-    <script src="{{ asset('js/pages/crud/ktdatatable/base/html-table.js') }}"></script>
+    <script src="{{ asset('js/pages/crud/ktdatatable/base/ID_students_html-table.js') }}"></script>
     <!--end::Page Scripts-->
 
     <script>

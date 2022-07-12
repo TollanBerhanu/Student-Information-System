@@ -13,7 +13,7 @@ $factory->define(Student::class, function (Faker $faker) {
         'last_name' => $faker->lastName,
         'email' => $faker->safeEmail,
         'phone_number' => $faker->unique()->phoneNumber,
-        'profile' => "media/team/awol.jpg",
+        'profile' => App\Model\Syncable\Photo::all()->random()->id,
         'dob' => $faker->date,
         'sex' => $faker->randomElement(['Male', 'Female']),
         'status' => true,

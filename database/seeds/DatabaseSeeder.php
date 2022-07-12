@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
         factory(App\Model\Privilege::class, 25)->create();
         factory(App\Model\Role::class, 25)->create();
         factory(App\Model\RolePrivilege::class, 100)->create();
+        factory(App\Model\Syncable\Photo::class, 20)->create();
         factory(App\Model\Syncable\Student::class, 100)->create();
         factory(App\Model\User::class, 5)->create();
 
