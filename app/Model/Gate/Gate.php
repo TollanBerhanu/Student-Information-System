@@ -17,5 +17,4 @@ public function college()
 {
     return $this->belongsTo('App\Model\Syncable\College');
 }
-
 }

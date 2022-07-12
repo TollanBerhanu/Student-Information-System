@@ -22,7 +22,7 @@
     </div>
 
     <div class="card">
-              <div class="card-header">
+              <div class="card-header"style="background-color:cyan!important">
                 <!-- <h3 class="card-title">DataTable with default features</h3> -->
   
         <form class="form-inline my-2 my-lg-0" method="get" action="{{url('/gate/student/permitedStudent')}}">

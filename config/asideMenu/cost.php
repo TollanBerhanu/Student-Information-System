@@ -3,13 +3,24 @@
 return [
 
     'items' => [
-        // Dashboard
+        // Custom
         [
-            'title' => 'Cost Sharing',
+            'section' => 'Admin Cost Share',
+        ],
+        // Employee
+        [
+
+            'title' => 'College Cost Share',
+            'desc' => '',
+            'icon' => 'media/svg/icons/Design/Bucket.svg',
+            'bullet' => 'dot',
             'root' => true,
-            'icon' => 'media/svg/icons/Design/Layers.svg', // or can be 'flaticon-home' or any flaticon-*
-            'page' => '/',
-            'new-tab' => false,
+            'submenu' => [
+                [
+                    'title' => 'Cost Share Report',
+                    'page' => 'cost/collegeCost/studentList'
+                ]
+            ]
         ],
     ]
 

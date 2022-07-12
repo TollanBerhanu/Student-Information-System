@@ -17,6 +17,6 @@ class Block_Gate extends Model
 
     public function student()
     {
-        return $this->hasMany(Student::class,'student_id');
+        return $this->belongsTo('App\Model\Syncable\Student','student_id');
     }
 }

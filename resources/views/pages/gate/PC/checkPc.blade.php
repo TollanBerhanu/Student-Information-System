@@ -1,4 +1,9 @@
 
+{{-- Extends layout --}}
+@extends('layout.empty')
+
+{{-- Content --}}
+@section('content')
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,49 +30,42 @@
     </div>
 @endif
 
-
-<center>
-
-</center>
-@if($check==0)
-
-
     <center>
 
         <div style="width: 90%;height:90%; position: absolute;margin-top: 5px;margin-left:5px; border: 3px solid black;"></div>
 
     </center>
 
-@elseif($check==1)
-
     <div style="width: 90%;height:90%; position: absolute;margin-top: 5px; border: 3px solid black;">
         <div style="width: 45%; height:90%;float: left;border-right: 3px solid black;margin-top: 10px; padding: 10px;">
 
-            @if(! $errors->has('stud_id'))
-                <table style="row-gap:5px ;">
+          
+                <table style="row-gap:5px ;"
+                <tr>
+                     <td>Id :</td>
+                    <td>{{$studentInfo['student_id']}}</td>
+                   </tr>
+                            <tr>
+                             
+                            <td>Student Full Name :</td>
+                        <td>{{$studentInfo['first_name']}} {{$studentInfo['middle_name']}} {{$studentInfo['last_name']}}</td>
+                 </tr>
                     <tr>
                         <td>Serial :</td>
                         <td>{{$Pcinfo['serialNo']}}</td>
-                    </tr>
-{{--                    <tr>--}}
-{{--                        <td>Program :</td>--}}
-{{--                        <td>{{$stu_prog}}</td>--}}
-{{--                    </tr>--}}
-{{--                    <tr>--}}
-{{--                        <td>company :</td>--}}
-{{--                        <td> {{$Pc_company}}</td>--}}
-{{--                    </tr>--}}
-{{--                    <tr>--}}
-{{--                        <td>Color :</td>--}}
-{{--                        <td>{{$Pc_color}}</td>--}}
-{{--                    </tr>--}}
-{{--                    <tr>--}}
-{{--                        <td>Serial No :</td>--}}
-{{--                        <td>{{$Pc_serial}}</td>--}}
-{{--                    </tr>--}}
+                    </tr>                  
+               <tr>
+                    <td>Trade Mark :</td>
+                       <td>{{$Pcinfo['t_mark']}}</td>
+                  </tr>
+                  <tr>
+                       <td>Color :</td>
+                       <td>{{$Pcinfo['color']}}</td>
+                   </tr>
+        
                 </table>
 
-            @else
+  
 
                 <table style="row-gap:5px ;">
                     <tr>
@@ -92,14 +90,11 @@
                     </tr>
                 </table>
 
-            @endif
-
-
 
         </div>
         <div style="float: right;height:300px;max-width: 45%;margin-top: 10px;">
             @error('stud_id')
-            <center><img src="{{ asset('images/incorrect.png') }}" width=50% style="margin: auto;"></center>
+            <center><img src="/{{$studentInfo['profile']}}" width=50% style="margin: auto;"></center>
             @enderror
 
             @if(! $errors->has('stud_id'))
@@ -111,16 +106,10 @@
 
 
     </div>
-
-
-@else
     <center>
         <p style="color: red">Error input</p>
     </center>
-@endif
-
-
-
 </body>
 
 </html>
+@endsection

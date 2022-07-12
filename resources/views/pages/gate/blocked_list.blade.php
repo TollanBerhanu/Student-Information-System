@@ -50,10 +50,11 @@
                 <thead>
                 <tr>
                     <th>Profile</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
+                    <th>Full Name</th>
+                    <th>Alert</th>
                     <th>Student ID</th>
                     <th>Sex</th>
+                    <th>Blocked Date</th>
                     <th>Phone Number</th>
                     <th>Action</th>
                 </tr>
@@ -61,15 +62,17 @@
                 <tbody>
                 @foreach($students as $student)
                     <tr>
-                        <td>
-                            <img class="rounded-circle w-50px h-50px" alt="5x5"
-                                 src="/{{$student['profile']}}"
-                                 data-holder-rendered="true"></td>
-                        <td>{{ $student['first_name'] }}</td>
-                        <td>{{ $student['last_name'] }}</td>
-                        <td>{{ $student['student_id'] }}</td>
-                        <td>{{ $student['sex'] }}</td>
-                        <td>{{ $student['phone_number'] }}</td>
+                        <td> 
+                            <a href="{{route('studentList.show',$student->id)}}">
+                            <img class="rounded-circle w-50px h-50px"  src="/{{$student['student']['profile']}}" alt="5x5"
+                            </a>    
+                                </td>
+                        <td>{{ $student->student['first_name']}} {{$student['student']['middle_name']}}</td>
+                        <td>{{ $student['alert']}}</td>
+                        <td>{{ $student['student']['student_id'] }}</td>
+                        <td>{{ $student['student']['sex'] }}</td>
+                        <td>{{ $student->created_at->format('d M Y - H:i:s') }}</td>
+                        <td>{{ $student['student']['phone_number'] }}</td>
                         <td>{{ $student['id']}}</td>
                     </tr>
                 @endforeach
@@ -141,8 +144,8 @@
                             // callback function support for column rendering
                             template: function template(row) {
                                 return (
-                                    `<a href="/clinic/reception/accept/${row['Action']}" class="btn btn-primary btn-clean  mr-2" title="Select Student">
-	                                     Select
+                                    `<a href="#" class="btn btn-danger btn-clean  mr-2" title="Select Student">
+	                                     delete
                                     </a>`
                                 );
                             },

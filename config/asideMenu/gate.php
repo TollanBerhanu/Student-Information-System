@@ -7,20 +7,20 @@ return [
             'section' => 'Gate Admin',
         ],
          // Employee
-         [
-            'title' => 'Student List',
-            'desc' => '',
-            'icon' => 'media/svg/icons/Design/Bucket.svg',
-            'bullet' => 'dot',
-            'root' => true,
-            'submenu' => [
-                [
-                    'title' => 'List',
-                    'page' => '/gate/admin/blocked_StudentList'
-                ]
+          [
+        'title' => 'Student List',
+        'desc' => '',
+        'icon' => 'media/svg/icons/Design/Bucket.svg',
+        'bullet' => 'dot',
+        'root' => true,
+        'submenu' => [
+            [
+                'title' => 'List',
+                'page' => '/gate/admin/blocked_StudentList'
             ]
-        ],
-       // Gate Assign
+        ]
+    ],
+       // G`ate Assign
        [
         'title' => 'Control Gate',
         'desc' => '',
@@ -59,7 +59,11 @@ return [
         'submenu' => [
             [
                 'title' => 'Employee Attend List',
-                'page' => '/gate/attendance'
+                'page' => '/gate/get_employee_history'
+            ],
+            [
+                'title' =>'Gate List',
+                'page' =>'/gate/gate_list'
             ]
         ]
     ],

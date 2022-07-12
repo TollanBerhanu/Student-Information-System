@@ -31,15 +31,6 @@ class GatePagesController extends Controller
     }
 // Attendance of the employees at the gate
 
-public function employeeList()
-{
-    $user = Auth::user();
-    $employees = User::where('role_id',$user->role->id )->get();
-    $page_title = 'Employee List';
-    $page_description = 'List of employees at Gate';
-    return view('pages.gate.emp_gate',
-    compact('page_title', 'page_description', 'user', 'employees'));
-}
 
 
     public function studList()
@@ -63,37 +54,24 @@ public function employeeList()
 
     public function search_Permited_Student(Request $request)
     {
-        $gate = Block_Gate::with('student')->get();
         $students = Student::with('gate')->get();
         $student =Student::all();
         $program = Program::with('student')->get();
-
         $user = Auth::user();
-
         if(asset($_GET['query'])){
-
-
 
             $search_text= $request->input('query');
             $studentInfo1=Student::where('student_id',$search_text)->first();
             $Pcinfo=Pc::where('serialNo',$search_text)->first();
             if($studentInfo1==null){
                  // dd("NO such ID and we will chech serial");
-
                 if($Pcinfo==null){
-
-
                     //  dd("Neither of two");
-                    return view ('Pages.gate.PC.pcCheck', compact('user'));
+                    return view ('Pages.gate.invalid_id', compact('user'));
                 }
                 else{
-
-
-
                     $studentInfo=$student->only($Pcinfo->student_id)->first();
-
                     return view ('Pages.gate.PC.pcCheck', compact('studentInfo','Pcinfo','user'));
-                 dd("PC information");
 
                 }
 
@@ -119,11 +97,11 @@ public function employeeList()
                 $permited_college = $found==$user_college;
 
 
-                $block_gate = Block_Gate::where('student_id',$studentInfo1->id)->get();
-
+                $block_gate = Block_Gate::where('student_id',$studentInfo1->id)->get()->first();
+            
                 $ab = Student::where('student_id',$search_text)->exists();
                 $searchStud = Student::where('student_id','LIKE','%'.$search_text.'%')->get();
-
+             
                 if($block==null && $permited_college){
                    // dd($studentInfo1->id);
                     return view ('Pages\gate\permitedStudent', compact('searchStud','user'));
@@ -184,19 +162,5 @@ public function gate_attendance(Request $request, $id)
 
 // This is handle attendance route
 
-public function attendanceHandle(Request $request): \Illuminate\Http\RedirectResponse
-{
 
-    $flight = new Gate_Emp_Record;
-
-    $flight->gate_id = $request->gate_id;
-    $flight->user_id = $request->user_id;
-    $flight->shift = $request->shift;
-    $flight->date = '2022-04-28';
-    $flight->save();
-
-    return back()->with(['notification' => "Success", 'alert_type' => "success", 'message' => 'Employee Added successfully!']);
-
-
-}
 }

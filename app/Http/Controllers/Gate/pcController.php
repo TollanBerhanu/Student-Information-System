@@ -41,8 +41,8 @@ class pcController extends Controller
                 });
             })->get();
         }
-        $page_title = 'Clinic Student List ';
-        $page_description = 'Student list';
+        $page_title = 'Student List for manage Pc';
+        $page_description = '';
         $user = Auth::user();
 
         return view('pages.gate.PC.studentList',
@@ -279,6 +279,11 @@ class pcController extends Controller
 
         //
     }
-
+public function deletePc($id)
+{
+  
+    DB::delete('delete from pc where id=?',[$id]);
+    return view('pages.gate.pc.studentPcList')->with(['notification' => "Success", 'alert_type' => "success", 'message' => 'PC deleted successfully!']);
+}
 
 }

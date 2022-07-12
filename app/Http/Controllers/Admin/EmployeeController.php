@@ -80,7 +80,6 @@ class EmployeeController extends Controller
         } else {
             $data['profile'] = "media/users/100_3.jpg";
         }
-
         $user = User::create($data);
 
         return back()->with(['notification' => "Success", 'alert_type' => "success", 'message' => 'Employee registered successfully!']);
