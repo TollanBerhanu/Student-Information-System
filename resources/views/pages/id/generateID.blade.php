@@ -245,5 +245,22 @@
             document.getElementById('role_privilege_data_array').value = JSON.stringify(temp);
         })
 
+
+        var selected = [];
+        function selectListener(id){
+        const index = selected.indexOf(id);
+        if (index > -1) { 
+            selected.splice(index, 1); // 2nd parameter means remove one item only
+        }
+        else{
+            selected.push(id);
+        }
+        }
+        function getSelected(){
+        document.getElementsByClassName('sel').forEach(sel => {
+            sel.value = selected;
+        })
+        }
+
     </script>
 @endsection
